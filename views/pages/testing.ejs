@@ -1,0 +1,148 @@
+<main class="h-full flex items-center justify-center">
+    <% let question=0;%>
+        <div class="px-4 sm:px-6 h-full">
+            <div class="mx-auto w-full max-w-md h-full">
+                <div class="border-solid border-2 border-indigo-200 px-3 py-3 mt-10 rounded-xl shadow-lg">
+                    <h2 class="mb-3 text-2xl font-medium tracking-tight text-gray-900 text-center">Finansal Muhasebe
+                        Test - 1</h2>
+                    <p class="font-normal text-gray-600 mb-5 ">Görevde yükselme sınavlarında mutlaka sorulan, her
+                        memurun
+                        bilmesi
+                        beklenen Devlet Memurları Kanunu ile ilgili baştan sona çözümlü test soruları</p>
+                </div>
+
+                <div class="pb-2 pt-4 sm:pt-6 overflow-hidden text-sm font-normal h-full">
+
+                    <div class="p-8 border group border-gray-300 shadow-md rounded-xl h-full">
+                        <h2 class="text-2xl font-semibold mb-4 fade-in">
+                            <%=dataList[question].soru_metni%>
+                        </h2>
+
+
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                            <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
+                        </div>
+                        
+
+
+                        <!-- Question number box -->
+                        <div class="mb-4 text-center ">
+                            Soru <span class="font-bold">
+                                <%= question + 1 %>/<%= dataList.length %>
+                            </span>
+                        </div>
+
+                        <!-- Question and options -->
+                        <div class="mb-8">
+
+                            <!-- Options -->
+                            <div class="space-y-4 text-base">
+                                <label class="block border-gray-200 rounded border items-center ps-4 ">
+                                    <input type="radio" name="answer" class="mr-2">
+                                    <%=dataList[question].secenek_a%>
+                                </label>
+                                <label class="block">
+                                    <input type="radio" name="answer" class="mr-2">
+                                    <%=dataList[question].secenek_b%>
+                                </label>
+                                <label class="block">
+                                    <input type="radio" name="answer" class="mr-2">
+                                    <%=dataList[question].secenek_c%>
+                                </label>
+                                <label class="block">
+                                    <input type="radio" name="answer" class="mr-2">
+                                    <%=dataList[question].secenek_d%>
+                                </label>
+                            </div>
+                            
+                            
+                        </div>
+
+                        <!-- Navigation buttons -->
+                        <div class="flex justify-between text-base">
+                            <button class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-md"
+                                id="onceki">Önceki</button>
+                            <button class="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-md">Çözüm</button>
+                            <button class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-md"
+                                id="sonraki">Sonraki</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+</main>
+<script>
+    var question = <%= question %>;
+    var dataList = <%- JSON.stringify(dataList) %>;
+
+    // Sayfa yüklendiğinde progress bar'ını güncelle
+    document.addEventListener("DOMContentLoaded", function() {
+        updateProgressBar();
+        checkQuest();
+       
+    });
+    function checkQuest() {
+        if (question== 0) {
+            document.getElementById("onceki").style.display="none";
+        }
+        else{document.getElementById("onceki").style.display="block";}
+    }
+
+    document.getElementById("onceki").addEventListener("click", ()=>{
+        // Önceki butonuna tıklandığında question'ı azalt
+        if (question > 0) {
+            question -= 1;
+            updateQuestion();
+            updateProgressBar();
+            checkQuest();
+        }
+    });
+
+    document.getElementById("sonraki").addEventListener("click", ()=>{
+        // Sonraki butonuna tıklandığında question'ı artır
+        if (question < dataList.length - 1) {
+            question += 1;
+            updateQuestion();
+            updateProgressBar();
+            checkQuest();
+        }
+    });
+
+    function updateProgressBar() {
+        // Toplam soru sayısına göre genişlik oranını ayarla
+        const progressPercentage = (question + 1) / dataList.length * 100;
+        document.getElementById('progressBar').style.width = `${progressPercentage}%`;
+    }
+
+    function updateQuestion() {
+        // EJS dosyasındaki question değişkenini ve soru metnini güncelle
+        document.querySelector('.mb-4.text-center').innerHTML = `
+            ${dataList[question].soru_metni}
+            Soru <span class="font-bold">${question + 1}/${dataList.length}</span>`;
+
+        // Seçenekleri güncelle
+        document.querySelector('.mb-8').innerHTML = `<div class="space-y-4 text-base">
+            <label class="block">
+                <input type="radio" name="answer" class="mr-2">
+                ${dataList[question].secenek_a}
+            </label>
+            <label class="block">
+                <input type="radio" name="answer" class="mr-2">
+                ${dataList[question].secenek_b}
+            </label>
+            <label class="block">
+                <input type="radio" name="answer"class="mr-2">
+                ${dataList[question].secenek_c}
+            </label>
+            <label class="block">
+                <input type="radio" name="answer"  class="mr-2">
+                ${dataList[question].secenek_d}
+            </label>
+        </div>`;
+        checkQuest();
+    }
+</script>

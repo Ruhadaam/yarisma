@@ -1,0 +1,310 @@
+<div class="p-11 h-full  flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md  w-1/2">
+
+        <h1 class="text-2xl font-semibold mb-10">Test Ekleme</h1>
+
+        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori</label>
+
+
+
+        <select id="categories" onchange="getTests()"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            >
+            <option selected>Kategori Seçiniz...</option>
+            <% dataList.forEach(function(data, i) { %>
+                <option value="<%=data.kategori_id%>">
+                    <%=data.kategori_ad%>
+                </option>
+
+
+                <% let aciklama=data.kategori_aciklama %>
+
+                    <% }) %>
+        </select>
+
+
+        <button type="button" id="addTest" onclick="createTest()"
+            class="focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 m-5">Test
+            Oluştur</button>
+
+
+        <hr class="mb-5">
+
+        <h1 class="text-2xl font-semibold mb-5">Soru Ekleme</h1>
+        <form method="post">
+            <select id="tests" name="test" onchange="getQuestion()"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="">Lütfen önce bir kategori seçiniz</option>
+            </select>
+
+
+
+
+            <h1 class="text-2xl font-semibold mb-5">Sorular</h1>
+
+
+            <div id="sorular"
+                class="w-100 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <a href="#"
+                    class="flex justify-between w-full px-4 py-2  border-gray-200 cursor-pointer  hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                    Örnek Soru<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6 text-red-700   rotate-0 hover:rotate-[30deg] transition-all">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+
+                </a>
+
+            </div>
+
+            <div class="flex justify-between">
+                <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button"
+                    class=" flex justify-between focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2.5  ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Soru Ekle
+                </button>
+            </div>
+
+            <div id="default-modal" tabindex="-1" aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-full md:inset-0">
+                <div class="bg-white p-8 md:w-96 mx-auto">
+
+
+                    <label for="message"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Soru</label>
+                    <textarea id="message" rows="4" name="soru_metni"
+                        class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Sorunuzu bu kısma yazınız..."></textarea>
+
+                    <!-- Şık A -->
+                    <label class="block mb-5">
+                        <span class="text-sm font-semibold">A)</span>
+                        <input type="text" name="secenekA" class="w-full p-2 border border-gray-300 rounded-md">
+                    </label>
+
+                    <!-- Şık B -->
+                    <label class="block mb-5">
+                        <span class="text-sm font-semibold">B)</span>
+                        <input type="text" name="secenekB" class="w-full p-2 border border-gray-300 rounded-md">
+                    </label>
+
+                    <!-- Şık C -->
+                    <label class="block mb-5">
+                        <span class="text-sm font-semibold">C)</span>
+                        <input type="text" name="secenekC" class="w-full p-2 border border-gray-300 rounded-md">
+                    </label>
+
+                    <!-- Şık D -->
+                    <label class="block mb-5">
+                        <span class="text-sm font-semibold">D)</span>
+                        <input type="text" name="secenekD" class="w-full p-2 border border-gray-300 rounded-md">
+                    </label>
+
+                    <!-- Doğru Cevap -->
+                    <select id="cevap" name="dogru_cevap"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Doğru cevap seçiniz...</option>
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                    </select>
+
+                    <label for="result"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Çözüm</label>
+                    <textarea id="result" name="soru_aciklama" rows="4"
+                        class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Çözümü bu kısma yazınız..."></textarea>
+
+                    <!-- Kaydet Butonu -->
+                    <button type="submit" data-modal-hide="default-modal" 
+                        class="focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Soru
+                        Ekle</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+<script src="/flowbite/flowbite.min.js"></script>
+<script>
+    function getTests() {
+        var selectElement = document.getElementById('categories');
+        var categoryId = selectElement.value;
+
+
+
+        // Select elementini bul
+        var testsSelect = document.getElementById('tests');
+
+        // Kontrol et: testsSelect null değilse devam et
+        if (testsSelect) {
+            // AJAX isteği yap
+            fetch('/admin/get-tests/' + categoryId)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // JSON formatında yanıt al
+                })
+                .then(tests => {
+                    // Gelen test verilerini işle ve alt tarafta göster
+
+
+                    // Önce mevcut optionları temizle
+                    testsSelect.innerHTML = '';
+
+                    // Default option (placeholder) ekleyin
+                    var defaultOption = document.createElement('option');
+                    defaultOption.value = ''; // Varsayılan değeri boş bırakabilirsiniz veya bir değer atayabilirsiniz
+                    defaultOption.text = 'Test Seç'; // Kullanıcıya gösterilen metin
+                    testsSelect.appendChild(defaultOption);
+
+                    // Her bir test verisini seçeneğe ekle
+                    tests.forEach(test => {
+                        var option = document.createElement('option');
+                        option.value = test.test_id; // Testin ID'sini value olarak ayarlayabilirsiniz
+                        option.text = test.test_ad; // Test adını text olarak ayarlayabilirsiniz
+                        testsSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else {
+            console.error('tests-select element not found');
+        }
+    }
+    function createTest() {
+        var selectElement = document.getElementById('categories');
+        var categoryId = selectElement.value;
+
+        fetch('/admin/create-category/' + categoryId)
+
+
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // JSON formatında yanıt al
+            })
+
+
+
+            .then(result => {
+                let kategori_ad = result[0].kategori_ad;
+                let kategori_aciklama = result[0].kategori_aciklama;
+                let kategori_id = result[0].kategori_id;
+                console.log(result[0].kategori_aciklama);
+                fetch('/admin/create/' + kategori_id + '/' + kategori_ad + '/' + kategori_aciklama).then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // JSON formatında yanıt al
+                }).then(data => {
+                    alert("Test Başarıyla Oluşturuldu");
+                })
+
+            }
+            )
+            .catch();
+
+    }
+    function getQuestion() {
+        var selectElement = document.getElementById('tests');
+        var testId = selectElement.value;
+        let sorular = document.getElementById("sorular");
+
+        fetch('/admin/get-test/' + testId)
+
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(questions => {
+                let sorularElement = document.getElementById("sorular");
+
+                // Önce mevcut içeriği temizle
+                sorularElement.innerHTML = '';
+
+                // Eğer questions boşsa, istediğiniz metni ekleyebilirsiniz
+                if (questions.length === 0) {
+                    let noQuest = document.createElement("div");
+                    noQuest.classList = "flex justify-between w-full px-4 py-2  border-gray-200 cursor-pointer  hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white";
+                    noQuest.innerHTML = 'Seçilen testte hiç soru bulunmamaktadır.';
+                    sorularElement.appendChild(noQuest);
+                } else {
+                    // Her bir soruyu işle
+                    questions.forEach((question, i) => {
+                        let questionElement = document.createElement("a");
+                        questionElement.href = "#";
+                        questionElement.name = `${question.soru_id}`;
+
+                        // Border-b class'ını sadece son elemana ekleyin
+                        questionElement.classList = "flex justify-between w-full px-4 py-2 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white";
+
+                        questionElement.innerHTML = `${i + 1}- ${question.soru_metni}<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+stroke="currentColor" class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] transition-all">
+<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+</svg>`;
+
+                        // Eğer son eleman değilse, border-b class'ını ekle
+                        if (i !== questions.length - 1) {
+                            questionElement.classList.add("border-b", "border-gray-200");
+                        }
+
+                        // Her bir soruyu sorular elementine ekle
+                        sorularElement.appendChild(questionElement);
+
+                        // SVG'ye tıklama olayını ekle
+                        questionElement.querySelector('svg').addEventListener('click', function () {
+                            deleteQuestion(question.soru_id);
+                        });
+
+                    });
+
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching questions:', error);
+                // Hata durumunda istediğiniz bir şey yapabilirsiniz, örneğin hata mesajını kullanıcıya gösterebilirsiniz.
+            });
+
+
+
+
+    }
+    function deleteQuestion(soru_id) {
+        fetch(`/admin/delete-question/${soru_id}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Soru başarıyla silindi:', data);
+                getQuestion();
+            })
+            .catch(error => {
+                console.error('Soru silinirken hata oluştu:', error);
+                // Hata durumunda bir şey yapabilirsiniz, örneğin kullanıcıya bir hata mesajı gönderebilirsiniz.
+            });
+
+
+    }
+</script>
