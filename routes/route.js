@@ -104,7 +104,7 @@ router.post('/admin/test-ekle', (req, res) => {
       console.error('Soru eklenirken hata oluştu:', err);
       // Hata durumunda bir şey yapabilirsiniz, örneğin istemciye bir hata mesajı gönderebilirsiniz.
     } else {
-      console.log('Soru başarıyla eklendi.');
+      console.log('Soru  eklendi.');
     
     }
   });
