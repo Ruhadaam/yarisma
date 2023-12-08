@@ -83,25 +83,29 @@
                     <!-- Şık A -->
                     <label class="block mb-5">
                         <span class="text-sm font-semibold">A)</span>
-                        <input type="text" id="secenekA" name="secenekA" class="w-full p-2 border border-gray-300 rounded-md">
+                        <input type="text" id="secenekA" name="secenekA"
+                            class="w-full p-2 border border-gray-300 rounded-md">
                     </label>
 
                     <!-- Şık B -->
                     <label class="block mb-5">
                         <span class="text-sm font-semibold">B)</span>
-                        <input type="text" id="secenekB" name="secenekB" class="w-full p-2 border border-gray-300 rounded-md">
+                        <input type="text" id="secenekB" name="secenekB"
+                            class="w-full p-2 border border-gray-300 rounded-md">
                     </label>
 
                     <!-- Şık C -->
                     <label class="block mb-5">
                         <span class="text-sm font-semibold">C)</span>
-                        <input type="text" id="secenekC" name="secenekC" class="w-full p-2 border border-gray-300 rounded-md">
+                        <input type="text" id="secenekC" name="secenekC"
+                            class="w-full p-2 border border-gray-300 rounded-md">
                     </label>
 
                     <!-- Şık D -->
                     <label class="block mb-5">
                         <span class="text-sm font-semibold">D)</span>
-                        <input type="text" id="secenekD" name="secenekD" class="w-full p-2 border border-gray-300 rounded-md">
+                        <input type="text" id="secenekD" name="secenekD"
+                            class="w-full p-2 border border-gray-300 rounded-md">
                     </label>
 
                     <!-- Doğru Cevap -->
@@ -121,7 +125,7 @@
                         placeholder="Çözümü bu kısma yazınız..."></textarea>
 
                     <!-- Kaydet Butonu -->
-                    <button type="submit" data-modal-hide="default-modal" 
+                    <button type="submit" data-modal-hide="default-modal"
                         class="focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Soru
                         Ekle</button>
                 </div>
@@ -308,13 +312,22 @@ stroke="currentColor" class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] 
 
     }
     function yenile() {
-        let soru_metni = document.getElementById("soru_metni").value="";
-        let secenekA = document.getElementById("secenekA").value="";
-        let secenekB = document.getElementById("secenekB").value="";
-        let secenekC = document.getElementById("secenekC").value="";
-        let secenekD = document.getElementById("secenekD").value="";
-        let dogru_cevap = document.getElementById("dogru_cevap").value="";
-        let soru_cozum = document.getElementById("soru_cozum").value="";
+        let soru_metni = document.getElementById("soru_metni").value = "";
+        let secenekA = document.getElementById("secenekA").value = "";
+        let secenekB = document.getElementById("secenekB").value = "";
+        let secenekC = document.getElementById("secenekC").value = "";
+        let secenekD = document.getElementById("secenekD").value = "";
+        let dogru_cevap = document.getElementById("dogru_cevap").value = "";
+        let soru_cozum = document.getElementById("soru_cozum").value = "";
+
     }
-    
+
+    addEventListener("DOMContentLoaded", () => {
+        Swal.fire({
+            title: "The Internet?",
+            text: "That thing is still around?",
+            icon: "question"
+        });
+    })
+
 </script>
