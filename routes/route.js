@@ -1,7 +1,8 @@
 const express = require('express');
-const path = require('path');
 const router = express.Router();
 const db = require('../data/db');
+const util = require('util');
+const queryAsync = util.promisify(db.query).bind(db);
 //KULLANICI YÖNLENDİRMELERİ
 router.get('/', (req, res) => {
   db.query("select * from kategoriler", function (err, response) {
@@ -57,16 +58,28 @@ router.get('/pages/test/:kategori_Id', (req, res) => {
 
 
 //ADMİN YÖNLENDİRMELERİ
+router.get('/admin', async (req, res) => {
+  try {
+    const kategoriResult = await queryAsync(`SELECT COUNT(*) AS kategori_sayisi FROM kategoriler`);
+    const testResult = await queryAsync(`SELECT COUNT(*) AS test_sayisi FROM testler`);
+    const soruResult = await queryAsync(`SELECT COUNT(*) AS soru_sayisi FROM sorular`);
+    const kategoriList = await queryAsync(`SELECT kategori_id, kategori_ad,COUNT(*) AS test_sayisi FROM testler GROUP BY kategori_id, kategori_ad ORDER BY test_sayisi DESC LIMIT 5;`);
+    const data = {
+      value: "admin-content",
+      title: "Admin",
+      kategori_sayisi: kategoriResult[0].kategori_sayisi,
+      test_sayisi: testResult[0].test_sayisi,
+      soru_sayisi: soruResult[0].soru_sayisi,
+      kategoriList:kategoriList
+    };
+    console.log(kategoriList);
 
-router.get('/admin', (req, res) => {
-  const data = {
-    value: "admin-kategori",
-    title: "Admin",
-
-  };
-  res.render('admin/admin-index', data);
+    res.render('admin/admin-index', data);
+  } catch (error) {
+    console.error("Hata oluştu:", error);
+    res.status(500).send("Sunucu hatası");
+  }
 });
-
 
 
 router.get('/admin/test-ekle', (req, res) => {
@@ -93,7 +106,7 @@ router.post('/admin/test-ekle', (req, res) => {
   let secenek_C = req.body.secenekC;
   let secenek_D = req.body.secenekD;
   let dogru_cevap = req.body.dogru_cevap;
- 
+
 
 
   const query = `
@@ -107,7 +120,7 @@ router.post('/admin/test-ekle', (req, res) => {
       // Hata durumunda bir şey yapabilirsiniz, örneğin istemciye bir hata mesajı gönderebilirsiniz.
     } else {
       console.log('Soru başarıyla eklendi.');
-    
+
     }
   });
 
