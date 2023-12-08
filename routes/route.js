@@ -40,6 +40,18 @@ router.get('/pages/testing/:test_id', (req, res) => {
   });
 });
 
+
+router.get('/iletisim', (req,res) => {
+
+  const data = {
+    value: "template/contact",
+    title: "İletişim"
+  };
+
+  res.render('index', data);
+});
+
+
 router.get('/pages/test/:kategori_Id', (req, res) => {
   let kategori_Id = req.params.kategori_Id;
   db.query(`SELECT * FROM testler WHERE kategori_Id = ${kategori_Id}`, (err, sonuc) => {
