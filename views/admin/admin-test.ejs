@@ -216,7 +216,10 @@
                     }
                     return response.json(); // JSON formatında yanıt al
                 }).then(data => {
-                    alert("Test Başarıyla Oluşturuldu");
+                    Swal.fire({
+                        title: "Test Başarıyla oluşturuldu. ",
+                        icon: "success"
+                    })
                 })
 
             }
@@ -312,22 +315,25 @@ stroke="currentColor" class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] 
 
     }
     function yenile() {
-        let soru_metni = document.getElementById("soru_metni").value = "";
-        let secenekA = document.getElementById("secenekA").value = "";
-        let secenekB = document.getElementById("secenekB").value = "";
-        let secenekC = document.getElementById("secenekC").value = "";
-        let secenekD = document.getElementById("secenekD").value = "";
-        let dogru_cevap = document.getElementById("dogru_cevap").value = "";
-        let soru_cozum = document.getElementById("soru_cozum").value = "";
+
+        Swal.fire({
+            title: "Kayıt Başarıyla gerçekleşti",
+            icon: "success"
+        }).then(result => {
+            let soru_metni = document.getElementById("soru_metni").value = "";
+            let secenekA = document.getElementById("secenekA").value = "";
+            let secenekB = document.getElementById("secenekB").value = "";
+            let secenekC = document.getElementById("secenekC").value = "";
+            let secenekD = document.getElementById("secenekD").value = "";
+            let dogru_cevap = document.getElementById("dogru_cevap").value = "";
+            let soru_cozum = document.getElementById("soru_cozum").value = "";
+            getQuestion();
+        });
+
+
+
+
 
     }
-
-    addEventListener("DOMContentLoaded", () => {
-        Swal.fire({
-            title: "The Internet?",
-            text: "That thing is still around?",
-            icon: "question"
-        });
-    })
 
 </script>

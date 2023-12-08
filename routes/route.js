@@ -93,6 +93,8 @@ router.post('/admin/test-ekle', (req, res) => {
   let secenek_C = req.body.secenekC;
   let secenek_D = req.body.secenekD;
   let dogru_cevap = req.body.dogru_cevap;
+ 
+
 
   const query = `
   INSERT INTO sorular (test_id, soru_metni, soru_aciklama, secenek_a, secenek_b, secenek_c, secenek_d, dogru_cevap)
