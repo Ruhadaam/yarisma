@@ -72,7 +72,7 @@ router.get('/admin', async (req, res) => {
       soru_sayisi: soruResult[0].soru_sayisi,
       kategoriList:kategoriList
     };
-    console.log(kategoriList);
+    
 
     res.render('admin/admin-index', data);
   } catch (error) {
