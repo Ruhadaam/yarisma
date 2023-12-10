@@ -2,24 +2,31 @@
     <% let question=0;%>
         <div class="px-4 sm:px-6 h-full">
             <div class="mx-auto w-full max-w-md h-full">
-                <div class="border-solid border-2 border-indigo-200 px-3 py-3 mt-10 rounded-xl shadow-lg">
-                    <h2 class="mb-3 text-2xl font-medium tracking-tight text-gray-900 text-center">
-                        <% if (dataList.length > 0) { %>
-                            Finansal Muhasebe Test - 1
-                        <% } else { %>
-                            Bu test ile ilgili bir soru bulunamadı.
-                        <% } %>
-                    </h2>
-                  
-                </div>
+
+                 <!-- Soru Kontrol ve Test Ad START -->
+                 <div class="border-solid border-2 border-indigo-200 px-3 py-3 mt-10 rounded-xl shadow-lg fade-in"
+                 data-aos="fade-up">
+                 <h2 class="mb-3 text-2xl font-medium tracking-tight text-gray-900 text-center">
+                     <% if (dataList.length> 0) { %>
+                         <%= test_ad%>. Test soruları
+                             <% } else { %>
+                                 Bu test ile ilgili bir soru bulunamadı.
+                                 <% } %>
+                 </h2>
+
+             </div>
+             <!-- Soru Kontrol ve Test Ad END -->
+
+
                 <% if (dataList.length > 0) { %>
                 <div class="pb-2 pt-4 sm:pt-6 overflow-hidden text-sm font-normal h-full">
                     
-                    <div class="p-8 border group border-gray-300 shadow-md rounded-xl h-full">
+                    <div class="p-8 border group border-gray-300 shadow-md rounded-xl h-full"data-aos="fade-up">
+                       <div  id="soru" >
                         <h2 class="text-2xl font-semibold mb-4 fade-in">
                             <%=dataList[question].soru_metni%>
                         </h2>
-
+                    </div>
 
                         <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
                             <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
@@ -36,26 +43,27 @@
 
                         <!-- Question and options -->
                         <div class="mb-8">
-
-                            <!-- Options -->
                             <div class="space-y-4 text-base">
-                                <label class="block border-gray-200 rounded border items-center ps-4 ">
-                                    <input type="radio" name="answer" class="mr-2">
-                                    <%=dataList[question].secenek_a%>
+                                <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+                                    <input type="radio" value="a" name="answer" class="mr-2 <%= (dataList[question].dogru_cevap === 'a') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>" onchange='checkAnswer("a")'>
+                                    <%= dataList[question].secenek_a %>
                                 </label>
-                                <label class="block">
-                                    <input type="radio" name="answer" class="mr-2">
-                                    <%=dataList[question].secenek_b%>
+                                <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+                                    <input type="radio" value="b" name="answer" class="mr-2 <%= (dataList[question].dogru_cevap === 'b') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>" onchange='checkAnswer("b")'>
+                                    <%= dataList[question].secenek_b %>
                                 </label>
-                                <label class="block">
-                                    <input type="radio" name="answer" class="mr-2">
-                                    <%=dataList[question].secenek_c%>
+                                <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+                                    <input type="radio" value="c" name="answer" class="mr-2 <%= (dataList[question].dogru_cevap === 'c') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>" onchange='checkAnswer("c")'>
+                                    <%= dataList[question].secenek_c %>
                                 </label>
-                                <label class="block">
-                                    <input type="radio" name="answer" class="mr-2">
-                                    <%=dataList[question].secenek_d%>
+                                <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+                                    <input type="radio" value="d" name="answer" class="mr-2 <%= (dataList[question].dogru_cevap === 'd') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>" onchange='checkAnswer("d")'>
+                                    <%= dataList[question].secenek_d %>
                                 </label>
                             </div>
+                            
+                            
+                            
                             
                             
                         </div>
@@ -64,24 +72,56 @@
                         <div class="flex justify-between text-base">
                             <button class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-md"
                                 id="onceki">Önceki</button>
-                            <button class="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-md">Çözüm</button>
+                            <button class="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-md"  data-modal-target="cozum-modal" data-modal-toggle="cozum-modal">Çözüm</button>
                             <button class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-md"
                                 id="sonraki">Sonraki</button>
+
+                           
                         </div>
 
                     </div>
- <% } %>
+
                 </div>
             </div>
 
         </div>
 
+   
+            <!-- MODAL START -->
+            <div id="cozum-modal" tabindex="-1" aria-hidden="true"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50  justify-center items-center w-full h-full"
+            data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
+            <div class="bg-white rounded-md p-8 mx-auto w-full md:w-96">
+            <h2 class="text-xl font-bold mb-4">Soru Çözümü</h2>
+            <p id="cozum-modal-content" class="mb-4 text-gray-500"><%= dataList[question].soru_aciklama %></p>
+
+        
+      <div class="flex float-right">
+      <button  data-modal-hide="cozum-modal"
+              class="focus:outline-none text-gray-500 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+          Tamam
+      </button>
+   </div>
+  </div>
+</div>
+<!-- MODAL END -->
+<% } %>
 </main>
 <script>
     var question = <%= question %>;
     var dataList = <%- JSON.stringify(dataList) %>;
+    var trueValue = 0;
+    var falseValue = 0;
+  
+function checkAnswer(value) {
+    if (value === dataList[question].dogru_cevap) {
+       return 1;
+    }
+    else{
+        return 0;
+    }
+}
 
-    // Sayfa yüklendiğinde progress bar'ını güncelle
     document.addEventListener("DOMContentLoaded", function() {
         updateProgressBar();
         checkQuest();
@@ -92,28 +132,53 @@
             document.getElementById("onceki").style.display="none";
         }
         else{document.getElementById("onceki").style.display="block";}
+
+        if (question === dataList.length - 1) {
+        
+        document.getElementById("sonraki").innerHTML = "Bitti";
+        document.getElementById("sonraki").Value = "Bitti";
+        document.getElementById("sonraki").classList.add = "Bitti";
+    } else {
+        
+        document.getElementById("sonraki").innerHTML = "Sonraki";
+    }
     }
 
     document.getElementById("onceki").addEventListener("click", ()=>{
-        // Önceki butonuna tıklandığında question'ı azalt
         if (question > 0) {
             question -= 1;
             updateQuestion();
             updateProgressBar();
             checkQuest();
+            updateModalContent();
         }
     });
 
-    document.getElementById("sonraki").addEventListener("click", ()=>{
-        // Sonraki butonuna tıklandığında question'ı artır
-        if (question < dataList.length - 1) {
-            question += 1;
-            updateQuestion();
-            updateProgressBar();
-            checkQuest();
-        }
-    });
+    document.getElementById("sonraki").addEventListener("click", () => {
+    var innerHTMLValue = document.getElementById("sonraki").innerHTML;
+    if (innerHTMLValue ==="Bitti") {
+    console.log(trueValue);
+    }
 
+    var selectedValue = document.querySelector('input[name="answer"]:checked');
+    var userAnswer = selectedValue ? selectedValue.value : null;
+
+  
+    var result = checkAnswer(userAnswer);
+
+   
+    if (question < dataList.length - 1) {
+        trueValue += result;
+        question += 1;
+        updateQuestion();
+        updateProgressBar();
+        checkQuest();
+        updateModalContent();
+    }
+    
+});
+
+  
     function updateProgressBar() {
         // Toplam soru sayısına göre genişlik oranını ayarla
         const progressPercentage = (question + 1) / dataList.length * 100;
@@ -121,30 +186,42 @@
     }
 
     function updateQuestion() {
-        // EJS dosyasındaki question değişkenini ve soru metnini güncelle
+        document.getElementById("soru").innerHTML= `   <h2 class="text-2xl font-semibold mb-4 fade-in" data-aos="fade-left" >
+                            ${dataList[question].soru_metni}
+                        </h2>`;
+  
         document.querySelector('.mb-4.text-center').innerHTML = `
-            ${dataList[question].soru_metni}
+            
             Soru <span class="font-bold">${question + 1}/${dataList.length}</span>`;
 
         // Seçenekleri güncelle
-        document.querySelector('.mb-8').innerHTML = `<div class="space-y-4 text-base">
-            <label class="block">
-                <input type="radio" name="answer" class="mr-2">
-                ${dataList[question].secenek_a}
-            </label>
-            <label class="block">
-                <input type="radio" name="answer" class="mr-2">
-                ${dataList[question].secenek_b}
-            </label>
-            <label class="block">
-                <input type="radio" name="answer"class="mr-2">
-                ${dataList[question].secenek_c}
-            </label>
-            <label class="block">
-                <input type="radio" name="answer"  class="mr-2">
-                ${dataList[question].secenek_d}
-            </label>
-        </div>`;
+        document.querySelector('.mb-8').innerHTML = `
+    <div class="space-y-4 text-base" data-aos="fade-left">
+        <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+            <input type="radio" name="answer" class="mr-2 ${dataList[question].dogru_cevap !== "a" ? 'text-red-600 focus:ring-red-500' : ''}">
+            ${dataList[question].secenek_a}
+        </label>
+        <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+            <input type="radio" name="answer" class="mr-2 ${dataList[question].dogru_cevap !== "b" ? 'text-red-600 focus:ring-red-500' : ''}">
+            ${dataList[question].secenek_b}
+        </label>
+        <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+            <input type="radio" name="answer" class="mr-2 ${dataList[question].dogru_cevap === "c" ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500'}">
+            ${dataList[question].secenek_c}
+        </label>
+        <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+            <input type="radio" name="answer" class="mr-2 ${dataList[question].dogru_cevap !== "d" ? 'text-red-600 focus:ring-red-500' : ''}">
+            ${dataList[question].secenek_d}
+        </label>
+    </div>
+`;
+
         checkQuest();
+    }
+    function updateModalContent() {
+    document.getElementById("cozum-modal-content").innerHTML = dataList[question].soru_aciklama;
+    }
+    function giveResult() {
+   
     }
 </script>

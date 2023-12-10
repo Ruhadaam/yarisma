@@ -22,23 +22,34 @@ router.get('/', (req, res) => {
 router.get('/pages/testing/:test_id', (req, res) => {
   let test_id = req.params.test_id;
 
-  db.query('SELECT * FROM sorular WHERE test_id = ?', [test_id], function (err, sonuc) {
+  // İlk olarak test_id'yi kullanarak testler tablosundan kategori_ad'ı alalım
+  db.query('SELECT test_ad FROM testler WHERE test_id = ?', [test_id], function (err, testResult) {
     if (err) {
       console.error(err);
       res.status(500).send("Internal Server Error");
       return;
     }
 
-    const data = {
-      value: "pages/testing/",
-      title: `${test_id}-Testler`,
-      dataList: sonuc
-    };
+    // Ardından test_id'yi kullanarak sorular tablosundan soruları alalım
+    db.query('SELECT * FROM sorular WHERE test_id = ?', [test_id], function (err, questionResult) {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
+        return;
+      }
 
+      const data = {
+        value: "pages/testing/",
+        title: `${test_id}-Testler`,
+        test_ad: (testResult.length > 0) ? testResult[0].test_ad : "", // İlk sıradaki kategori_ad'ı alır
+        dataList: questionResult
+      };
 
-    res.render('index', data);
+      res.render('index', data);
+    });
   });
 });
+
 
 
 router.get('/iletisim', (req,res) => {
