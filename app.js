@@ -8,6 +8,7 @@ const router = require('./routes/route');
 app.set('view engine', 'ejs');
 app.use('/css', express.static(path.join(__dirname, 'views', 'assets', 'css')));
 app.use('/flowbite', express.static(path.join(__dirname, 'node_modules', 'flowbite', 'dist')));
+app.use('/aos', express.static(path.join(__dirname, 'node_modules', 'aos', 'dist')));
 
 app.use(express.urlencoded({ extended: false}))
 

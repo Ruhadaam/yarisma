@@ -1,6 +1,6 @@
 <div class="container  p-4 sm:p-8 flex flex-wrap">
     <!-- Test Kutucukları -->
-    <div class="text-center mx-auto mt-10 mb-10 ">
+    <div class="text-center mx-auto mt-10 mb-10  " data-aos="fade-up">
         <h3
             class="mb-6 px-6 font-sans text-4xl sm:text-5xl md:text-6xl font-extrabold leading-none tracking-tight text-gray-900 ">
             SMM Hazırlığa hoş geldiniz!</h3>
@@ -12,7 +12,7 @@
 
       
         <% dataList.forEach(function(data) { %>
-        <div
+        <div data-aos="fade-up"
             class="relative bg-white pt-6 pl-5 pb-5 pr-5 rounded-md mb-4 border group border-gray-300 shadow-md transition-colors duration-300 ease-in-out hover:bg-gray-100">
             <a href="/pages/test/<%=data.kategori_id%>">
                 <h2 class="mb-2 text-2xl font-medium tracking-tight text-gray-900"><%=data.kategori_ad%></h2>

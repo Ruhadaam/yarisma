@@ -3,16 +3,18 @@
         <div class="px-4 sm:px-6 h-full">
             <div class="mx-auto w-full max-w-md h-full">
                 <div class="border-solid border-2 border-indigo-200 px-3 py-3 mt-10 rounded-xl shadow-lg">
-                    <h2 class="mb-3 text-2xl font-medium tracking-tight text-gray-900 text-center">Finansal Muhasebe
-                        Test - 1</h2>
-                    <p class="font-normal text-gray-600 mb-5 ">Görevde yükselme sınavlarında mutlaka sorulan, her
-                        memurun
-                        bilmesi
-                        beklenen Devlet Memurları Kanunu ile ilgili baştan sona çözümlü test soruları</p>
+                    <h2 class="mb-3 text-2xl font-medium tracking-tight text-gray-900 text-center">
+                        <% if (dataList.length > 0) { %>
+                            Finansal Muhasebe Test - 1
+                        <% } else { %>
+                            Bu test ile ilgili bir soru bulunamadı.
+                        <% } %>
+                    </h2>
+                  
                 </div>
-
+                <% if (dataList.length > 0) { %>
                 <div class="pb-2 pt-4 sm:pt-6 overflow-hidden text-sm font-normal h-full">
-
+                    
                     <div class="p-8 border group border-gray-300 shadow-md rounded-xl h-full">
                         <h2 class="text-2xl font-semibold mb-4 fade-in">
                             <%=dataList[question].soru_metni%>
@@ -68,7 +70,7 @@
                         </div>
 
                     </div>
-
+ <% } %>
                 </div>
             </div>
 
