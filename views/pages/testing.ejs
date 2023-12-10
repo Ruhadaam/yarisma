@@ -87,7 +87,7 @@
         </div>
 
    
-            <!-- MODAL START -->
+            <!-- ÇÖZÜM MODAL START -->
             <div id="cozum-modal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50  justify-center items-center w-full h-full"
             data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
@@ -104,7 +104,10 @@
    </div>
   </div>
 </div>
-<!-- MODAL END -->
+<!--ÇÖZÜM MODAL END -->
+ 
+
+
 <% } %>
 </main>
 <script>
@@ -134,51 +137,15 @@ function checkAnswer(value) {
         else{document.getElementById("onceki").style.display="block";}
 
         if (question === dataList.length - 1) {
-        
+            
         document.getElementById("sonraki").innerHTML = "Bitti";
         document.getElementById("sonraki").Value = "Bitti";
-        document.getElementById("sonraki").classList.add = "Bitti";
     } else {
         
         document.getElementById("sonraki").innerHTML = "Sonraki";
     }
     }
 
-    document.getElementById("onceki").addEventListener("click", ()=>{
-        if (question > 0) {
-            question -= 1;
-            updateQuestion();
-            updateProgressBar();
-            checkQuest();
-            updateModalContent();
-        }
-    });
-
-    document.getElementById("sonraki").addEventListener("click", () => {
-    var innerHTMLValue = document.getElementById("sonraki").innerHTML;
-    if (innerHTMLValue ==="Bitti") {
-    console.log(trueValue);
-    }
-
-    var selectedValue = document.querySelector('input[name="answer"]:checked');
-    var userAnswer = selectedValue ? selectedValue.value : null;
-
-  
-    var result = checkAnswer(userAnswer);
-
-   
-    if (question < dataList.length - 1) {
-        trueValue += result;
-        question += 1;
-        updateQuestion();
-        updateProgressBar();
-        checkQuest();
-        updateModalContent();
-    }
-    
-});
-
-  
     function updateProgressBar() {
         // Toplam soru sayısına göre genişlik oranını ayarla
         const progressPercentage = (question + 1) / dataList.length * 100;
@@ -221,7 +188,40 @@ function checkAnswer(value) {
     function updateModalContent() {
     document.getElementById("cozum-modal-content").innerHTML = dataList[question].soru_aciklama;
     }
-    function giveResult() {
    
+    document.getElementById("onceki").addEventListener("click", ()=>{
+        if (question > 0) {
+            question -= 1;
+            updateQuestion();
+            updateProgressBar();
+            checkQuest();
+            updateModalContent();
+        }
+    });
+
+    document.getElementById("sonraki").addEventListener("click", () => {
+    var innerHTMLValue = document.getElementById("sonraki").innerHTML;
+    if (innerHTMLValue ==="Bitti") {
+    console.log(trueValue);
     }
+
+    var selectedValue = document.querySelector('input[name="answer"]:checked');
+    var userAnswer = selectedValue ? selectedValue.value : null;
+
+  
+    var result = checkAnswer(userAnswer);
+
+   
+    if (question < dataList.length - 1) {
+        trueValue += result;
+        question += 1;
+        updateQuestion();
+        updateProgressBar();
+        checkQuest();
+        updateModalContent();
+    }
+    
+});
+
+  
 </script>
