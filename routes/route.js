@@ -204,26 +204,14 @@ router.get('/admin/get-tests/:categoryId', (req, res) => {
   });
 });
 
-router.get('/admin/create/:kategori_id/:kategori_ad/:kategori_aciklama', (req, res) => {
+router.get('/admin/create/:kategori_id/:kategori_ad/:kategori_aciklama/:test_ad', (req, res) => {
   const kategori_ad = req.params.kategori_ad;
   const kategori_id = req.params.kategori_id;
   const kategori_aciklama = req.params.kategori_aciklama;
-
-  // Mevcut kategori_id'ye ait test sayısını al
-  db.query("SELECT COUNT(*) as test_sayisi FROM testler WHERE kategori_id = ?", [kategori_id], (err, countResult) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Internal Server Error' });
-    } else {
-      const testSayisi = countResult[0].test_sayisi;
-
-
-
-      // Yeni test adını belirle (örneğin, kategori_ad + test_sayisi)
-      const yeni_test_ad = kategori_ad + "-" + (testSayisi + 1);
+  const test_ad = req.params.test_ad;
 
       // Yeni testi ekle
-      db.query("INSERT INTO testler(kategori_id, kategori_ad, kategori_aciklama, test_ad) VALUES (?, ?, ?, ?)", [kategori_id, kategori_ad, kategori_aciklama, yeni_test_ad], (err, result) => {
+      db.query("INSERT INTO testler(kategori_id, kategori_ad, kategori_aciklama, test_ad) VALUES (?, ?, ?, ?)", [kategori_id, kategori_ad, kategori_aciklama, test_ad], (err, result) => {
         if (err) {
           console.error(err);
           res.status(500).json({ error: 'Internal Server Error' });
@@ -231,8 +219,7 @@ router.get('/admin/create/:kategori_id/:kategori_ad/:kategori_aciklama', (req, r
           res.json(result); // JSON formatında yanıt dön
         }
       });
-    }
-  });
+ 
 });
 
 router.get('/admin/get-test/:test_id', (req, res) => {

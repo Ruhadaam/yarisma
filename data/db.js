@@ -7,7 +7,7 @@ connection.connect(function (err) {
     if (err) {
         return console.log(err);
     }
-    console.log("mysql server bağlantısı yapıldı");
+    console.log("mysql connection is successful...");
 
 
    

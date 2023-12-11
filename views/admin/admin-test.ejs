@@ -21,7 +21,11 @@
 
                     <% }) %>
         </select>
-
+        <label class="block mb-5">
+            <span class="text-sm font-semibold">Test Adı</span>
+            <input type="text" id="test_ad" name="test_ad"
+                class="w-full p-2 border border-gray-300 rounded-md">
+        </label>
 
         <button type="button" id="addTest" onclick="createTest()"
             class="focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 m-5">Test
@@ -192,6 +196,8 @@
     function createTest() {
         var selectElement = document.getElementById('categories');
         var categoryId = selectElement.value;
+        var test_adInput = document.getElementById('test_ad');
+        var test_ad = test_adInput.value;
 
         fetch('/admin/create-category/' + categoryId)
 
@@ -210,16 +216,14 @@
                 let kategori_aciklama = result[0].kategori_aciklama;
                 let kategori_id = result[0].kategori_id;
                 console.log(result[0].kategori_aciklama);
-                fetch('/admin/create/' + kategori_id + '/' + kategori_ad + '/' + kategori_aciklama).then(response => {
+                fetch('/admin/create/' + kategori_id + '/' + kategori_ad + '/' + kategori_aciklama+ '/'+ test_ad).then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
                     return response.json(); // JSON formatında yanıt al
                 }).then(data => {
-                    Swal.fire({
-                        title: "Test Başarıyla oluşturuldu. ",
-                        icon: "success"
-                    })
+                    createAlert("success","Başarılı","Test Başarıyla oluşturuldu.")
+                 
                 })
 
             }
@@ -316,10 +320,7 @@ stroke="currentColor" class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] 
     }
     function yenile() {
 
-        Swal.fire({
-            title: "Kayıt Başarıyla gerçekleşti",
-            icon: "success"
-        }).then(result => {
+        createAlert("success","Başarılı","Kayıt başarıyla gerçekleştirildi.").then(result => {
             let soru_metni = document.getElementById("soru_metni").value = "";
             let secenekA = document.getElementById("secenekA").value = "";
             let secenekB = document.getElementById("secenekB").value = "";
@@ -336,4 +337,16 @@ stroke="currentColor" class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] 
 
     }
 
+
+function createAlert(icon,title,message) {
+    this.title = title;
+    this.icon= icon;
+    this.message = message;
+
+    Swal.fire({
+        title: this.title,
+        icon: this.icon,
+        text: this.message
+        })
+}
 </script>
