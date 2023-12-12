@@ -341,21 +341,24 @@
     }
     function yenile() {
 
-        createAlert("success", "Başarılı", "Kayıt başarıyla gerçekleştirildi.").then(result => {
+     
+        Swal.fire({
+            title: "Başarılı!",
+            icon: "success",
+            text: "Soru başarıyla kaydedildi."
+        })
+        .then(result => {
+            // Doğru alan isimlerini kontrol edin
             let soru_metni = document.getElementById("soru_metni").value = "";
-            let secenekA = document.getElementById("secenekA").value = "";
-            let secenekB = document.getElementById("secenekB").value = "";
-            let secenekC = document.getElementById("secenekC").value = "";
-            let secenekD = document.getElementById("secenekD").value = "";
-            let dogru_cevap = document.getElementById("dogru_cevap").value = "";
-            let soru_cozum = document.getElementById("soru_cozum").value = "";
+                let secenekA = document.getElementById("secenekA").value = "";
+                let secenekB = document.getElementById("secenekB").value = "";
+                let secenekC = document.getElementById("secenekC").value = "";
+                let secenekD = document.getElementById("secenekD").value = "";
+                let dogru_cevap = document.getElementById("dogru_cevap").value = "";
+                let soru_aciklama = document.getElementById("soru_aciklama").value = ""; // soru_cozum değil
+
 
         });
-
-
-
-
-
     }
 
 
