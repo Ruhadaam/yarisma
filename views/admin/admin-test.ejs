@@ -23,8 +23,7 @@
         </select>
         <label class="block mb-5">
             <span class="text-sm font-semibold">Test Adı</span>
-            <input type="text" id="test_ad" name="test_ad"
-                class="w-full p-2 border border-gray-300 rounded-md">
+            <input type="text" id="test_ad" name="test_ad" class="w-full p-2 border border-gray-300 rounded-md">
         </label>
 
         <button type="button" id="addTest" onclick="createTest()"
@@ -51,12 +50,20 @@
                 class="w-100 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 <a href="#"
                     class="flex justify-between w-full px-4 py-2  border-gray-200 cursor-pointer  hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
-                    Örnek Soru<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-6 h-6 text-red-700   rotate-0 hover:rotate-[30deg] transition-all">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-
+                    Örnek Soru
+                    <div class="flex space-x-2">
+                        <svg class="feather feather-edit" fill="none" height="24" stroke="currentColor"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
+                            width="24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-6 h-6 text-red-700   rotate-0 hover:rotate-[30deg] transition-all">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </div>
                 </a>
 
             </div>
@@ -216,14 +223,14 @@
                 let kategori_aciklama = result[0].kategori_aciklama;
                 let kategori_id = result[0].kategori_id;
                 console.log(result[0].kategori_aciklama);
-                fetch('/admin/create/' + kategori_id + '/' + kategori_ad + '/' + kategori_aciklama+ '/'+ test_ad).then(response => {
+                fetch('/admin/create/' + kategori_id + '/' + kategori_ad + '/' + kategori_aciklama + '/' + test_ad).then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
                     return response.json(); // JSON formatında yanıt al
                 }).then(data => {
-                    createAlert("success","Başarılı","Test Başarıyla oluşturuldu.")
-                 
+                    createAlert("success", "Başarılı", "Test Başarıyla oluşturuldu.")
+
                 })
 
             }
@@ -253,7 +260,7 @@
                 // Eğer questions boşsa, istediğiniz metni ekleyebilirsiniz
                 if (questions.length === 0) {
                     let noQuest = document.createElement("div");
-                    noQuest.classList = "flex justify-between w-full px-4 py-2  border-gray-200 cursor-pointer  hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white";
+                    noQuest.classList = "flex justify-between w-full px-4 py-2 border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white";
                     noQuest.innerHTML = 'Seçilen testte hiç soru bulunmamaktadır.';
                     sorularElement.appendChild(noQuest);
                 } else {
@@ -266,31 +273,45 @@
                         // Border-b class'ını sadece son elemana ekleyin
                         questionElement.classList = "flex justify-between w-full px-4 py-2 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white";
 
-                        questionElement.innerHTML = `${i + 1}- ${question.soru_metni}<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-stroke="currentColor" class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] transition-all">
-<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-</svg>`;
+                        questionElement.innerHTML = `${i + 1}- ${question.soru_metni}    <div class="flex space-x-2">
+    <svg id="edit_${question.soru_id}" class="feather feather-edit" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+    <svg id="sil_${question.soru_id}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6 text-red-700   rotate-0 hover:rotate-[30deg] transition-all">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+</div>`;
 
-                        // Eğer son eleman değilse, border-b class'ını ekle
                         if (i !== questions.length - 1) {
                             questionElement.classList.add("border-b", "border-gray-200");
                         }
 
-                        // Her bir soruyu sorular elementine ekle
                         sorularElement.appendChild(questionElement);
 
-                        // SVG'ye tıklama olayını ekle
-                        questionElement.querySelector('svg').addEventListener('click', function () {
-                            deleteQuestion(question.soru_id);
+                        // Tıklama olayları burada eklenir
+                        questionElement.querySelector(`svg#edit_${question.soru_id}`).addEventListener('click', function () {
+                            editQuestion(question.soru_id);
                         });
 
+                        questionElement.querySelector(`svg#sil_${question.soru_id}`).addEventListener('click', function () {
+                            deleteQuestion(question.soru_id);
+                        });
                     });
-
                 }
+
+                // Dışa çıkarılmış olay dinleyici fonksiyonları
+                function editQuestion(soru_id) {
+                    console.log(`Edit butonuna tıklandı - soru_id: ${soru_id}`);
+                    // Edit butonuna tıklanınca yapılacak işlemleri burada gerçekleştirin
+                }
+
+                
+                   
+               
+
             })
             .catch(error => {
                 console.error('Error fetching questions:', error);
-                // Hata durumunda istediğiniz bir şey yapabilirsiniz, örneğin hata mesajını kullanıcıya gösterebilirsiniz.
             });
 
 
@@ -308,19 +329,19 @@ stroke="currentColor" class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] 
                 return response.json();
             })
             .then(data => {
-                console.log('Soru başarıyla silindi:', data);
+                createAlert("success","Başarılı","Soru başarıyla silindi.");
                 getQuestion();
             })
             .catch(error => {
                 console.error('Soru silinirken hata oluştu:', error);
-                // Hata durumunda bir şey yapabilirsiniz, örneğin kullanıcıya bir hata mesajı gönderebilirsiniz.
+                createAlert("error","Hata",error);
             });
 
 
     }
     function yenile() {
 
-        createAlert("success","Başarılı","Kayıt başarıyla gerçekleştirildi.").then(result => {
+        createAlert("success", "Başarılı", "Kayıt başarıyla gerçekleştirildi.").then(result => {
             let soru_metni = document.getElementById("soru_metni").value = "";
             let secenekA = document.getElementById("secenekA").value = "";
             let secenekB = document.getElementById("secenekB").value = "";
@@ -328,7 +349,7 @@ stroke="currentColor" class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] 
             let secenekD = document.getElementById("secenekD").value = "";
             let dogru_cevap = document.getElementById("dogru_cevap").value = "";
             let soru_cozum = document.getElementById("soru_cozum").value = "";
-            getQuestion();
+
         });
 
 
@@ -338,15 +359,15 @@ stroke="currentColor" class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] 
     }
 
 
-function createAlert(icon,title,message) {
-    this.title = title;
-    this.icon= icon;
-    this.message = message;
+    function createAlert(icon, title, message) {
+        this.title = title;
+        this.icon = icon;
+        this.message = message;
 
-    Swal.fire({
-        title: this.title,
-        icon: this.icon,
-        text: this.message
+        Swal.fire({
+            title: this.title,
+            icon: this.icon,
+            text: this.message
         })
-}
+    }
 </script>
