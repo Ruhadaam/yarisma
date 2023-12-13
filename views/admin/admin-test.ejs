@@ -52,7 +52,7 @@
                     class="flex justify-between w-full px-4 py-2  border-gray-200 cursor-pointer  hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
                     Örnek Soru
                     <div class="flex space-x-2">
-                        <svg class="feather feather-edit" fill="none" height="24" stroke="currentColor"
+                        <svg class="feather feather-edit" fill="none" height="24" stroke="currentColor" data-modal-target="edit-modal" data-modal-toggle="edit-modal"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
                             width="24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
@@ -141,6 +141,67 @@
                         Ekle</button>
                 </div>
             </div>
+            <div id="edit-modal" tabindex="-1" aria-hidden="true"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-full md:inset-0">
+            <div class="bg-white p-8 md:w-96 mx-auto">
+
+
+                <label for="message"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Soru</label>
+                <textarea id="soru_metni_edit" rows="4" name="soru_metni_edit"
+                    class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Sorunuzu bu kısma yazınız..."></textarea>
+
+                <!-- Şık A -->
+                <label class="block mb-5">
+                    <span class="text-sm font-semibold">A)</span>
+                    <input type="text" id="secenekA_edit" name="secenekA_edit"
+                        class="w-full p-2 border border-gray-300 rounded-md">
+                </label>
+
+                <!-- Şık B -->
+                <label class="block mb-5">
+                    <span class="text-sm font-semibold">B)</span>
+                    <input type="text" id="secenekB_edit" name="secenekB_edit"
+                        class="w-full p-2 border border-gray-300 rounded-md">
+                </label>
+
+                <!-- Şık C -->
+                <label class="block mb-5">
+                    <span class="text-sm font-semibold">C)</span>
+                    <input type="text" id="secenekC_edit" name="secenekC_edit"
+                        class="w-full p-2 border border-gray-300 rounded-md">
+                </label>
+
+                <!-- Şık D -->
+                <label class="block mb-5">
+                    <span class="text-sm font-semibold">D)</span>
+                    <input type="text" id="secenekD_edit" name="secenekD_edit"
+                        class="w-full p-2 border border-gray-300 rounded-md">
+                </label>
+
+                <!-- Doğru Cevap -->
+                <select id="cevap" name="dogru_cevap_edit" id="dogru_cevap_edit"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected>Doğru cevap seçiniz...</option>
+                    <option value="a">A</option>
+                    <option value="b">B</option>
+                    <option value="c">C</option>
+                    <option value="d">D</option>
+                </select>
+
+                <label for="result"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Çözüm</label>
+                <textarea id="soru_aciklama_edit" name="soru_aciklama_edit" rows="4"
+                    class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Çözümü bu kısma yazınız..."></textarea>
+
+                <!-- Kaydet Butonu -->
+                <button type="submit" data-modal-hide="edit-modal"
+                    class="focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Soru
+                    Ekle</button>
+            </div>
+        </div>
 
         </form>
     </div>
@@ -159,37 +220,33 @@
 
 
 
-        // Select elementini bul
+ 
         var testsSelect = document.getElementById('tests');
 
-        // Kontrol et: testsSelect null değilse devam et
+      
         if (testsSelect) {
-            // AJAX isteği yap
+            
             fetch('/admin/get-tests/' + categoryId)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    return response.json(); // JSON formatında yanıt al
+                    return response.json(); 
                 })
                 .then(tests => {
-                    // Gelen test verilerini işle ve alt tarafta göster
-
-
-                    // Önce mevcut optionları temizle
                     testsSelect.innerHTML = '';
 
-                    // Default option (placeholder) ekleyin
+
                     var defaultOption = document.createElement('option');
-                    defaultOption.value = ''; // Varsayılan değeri boş bırakabilirsiniz veya bir değer atayabilirsiniz
-                    defaultOption.text = 'Test Seç'; // Kullanıcıya gösterilen metin
+                    defaultOption.value = ''; 
+                    defaultOption.text = 'Test Seç'; 
                     testsSelect.appendChild(defaultOption);
 
-                    // Her bir test verisini seçeneğe ekle
+                   
                     tests.forEach(test => {
                         var option = document.createElement('option');
-                        option.value = test.test_id; // Testin ID'sini value olarak ayarlayabilirsiniz
-                        option.text = test.test_ad; // Test adını text olarak ayarlayabilirsiniz
+                        option.value = test.test_id;
+                        option.text = test.test_ad;
                         testsSelect.appendChild(option);
                     });
                 })
@@ -274,7 +331,7 @@
                         questionElement.classList = "flex justify-between w-full px-4 py-2 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white";
 
                         questionElement.innerHTML = `${i + 1}- ${question.soru_metni}    <div class="flex space-x-2">
-    <svg id="edit_${question.soru_id}" class="feather feather-edit" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+    <svg id="edit_${question.soru_id}" data-modal-target="edit-modal" data-modal-toggle="edit-modal" onclick="editQuestion(${question.soru_id})" class="feather feather-edit" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
     <svg id="sil_${question.soru_id}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
         stroke="currentColor"
         class="w-6 h-6 text-red-700   rotate-0 hover:rotate-[30deg] transition-all">
@@ -338,6 +395,26 @@
             });
 
 
+    }
+    function editQuestion(soru_id){
+        fetch(`/admin/edit-question/${soru_id}`).then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(result => {
+               console.log(result);
+               
+                
+                let soru_metni_edit = document.getElementById("soru_metni_edit").value = result.soru_metni;
+                let secenekA_edit = document.getElementById("secenekA_edit").value =  result.secenek_a;
+                let secenekB_edit = document.getElementById("secenekB_edit").value =  result.secenek_b;
+                let secenekC_edit = document.getElementById("secenekC_edit").value =  result.secenek_c;
+                let secenekD_edit = document.getElementById("secenekD_edit").value =  result.secenek_d;
+                
+                let soru_aciklama_edit = document.getElementById("soru_aciklama_edit").value =  result.soru_aciklama;
+            })
     }
     function yenile() {
 

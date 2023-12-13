@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const app = new express();
 const router = require('./routes/route');
+const adminRoute = require('./routes/admin-route');
+
 
 
 
@@ -14,6 +16,7 @@ app.use(express.urlencoded({ extended: false}))
 
 
 app.use(router);
+app.use(adminRoute);
 
 
 
