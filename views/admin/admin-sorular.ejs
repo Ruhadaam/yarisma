@@ -31,7 +31,8 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+
+            <tbody id="tbody">
                 <% dataList.forEach(data=> { %>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -48,8 +49,7 @@
                         </td>
 
                         <td class="px-6 py-4 flex space-x-3">
-                            <a href="#" data-modal-target="edit-modal<%=data.soru_id %>"
-                                data-modal-toggle="edit-modal<%=data.soru_id %>"
+                            <a href="/admin/soru-duzenle/<%=data.soru_id %>"
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Düzenle</a>
                             <svg id="<%=data.soru_id %>" onclick="deleteQuestion('<%=data.soru_id %>')"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -57,106 +57,108 @@
                                 class="w-6 h-6 text-red-700   rotate-0 hover:rotate-[30deg] transition-all">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
+                            <!-- MODAL START -->
+                            <div id="edit-modal<%=data.soru_id %>" tabindex="-1" aria-hidden="true"
+                                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                    <!-- Modal content -->
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <!-- Modal header -->
+                                        <div
+                                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                Soru Düzenleme
+                                            </h3>
+                                            <button type="button"
+                                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                data-modal-hide="edit-modal<%=data.soru_id %>">
+                                                <svg class="w-3 h-3" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                </svg>
+                                                <span class="sr-only">Close modal</span>
+                                            </button>
+                                        </div>
+                                        <!-- Modal body -->
+
+                                        <div class="p-8">
+                                            <form method="post">
+
+                                                <label for="message"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Soru</label>
+                                                <textarea id="soru_metni_edit" rows="4" name="soru_metni_edit"
+                                                    class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    placeholder="Sorunuzu bu kısma yazınız..."> <%=data.soru_metni %></textarea>
+
+                                                <!-- Şık A -->
+                                                <label class="block mb-5">
+                                                    <span class="text-sm font-semibold">A)</span>
+                                                    <input type="text" id="secenekA_edit" value=" <%=data.secenek_a %>"
+                                                        name="secenekA_edit"
+                                                        class="w-full p-2 border border-gray-300 rounded-md">
+                                                </label>
+
+                                                <!-- Şık B -->
+                                                <label class="block mb-5">
+                                                    <span class="text-sm font-semibold">B)</span>
+                                                    <input type="text" id="secenekB_edit" value=" <%=data.secenek_b %>"
+                                                        name="secenekB_edit"
+                                                        class="w-full p-2 border border-gray-300 rounded-md">
+                                                </label>
+
+                                                <!-- Şık C -->
+                                                <label class="block mb-5">
+                                                    <span class="text-sm font-semibold">C)</span>
+                                                    <input type="text" id="secenekC_edit" value=" <%=data.secenek_c %>"
+                                                        name="secenekC_edit"
+                                                        class="w-full p-2 border border-gray-300 rounded-md">
+                                                </label>
+
+                                                <!-- Şık D -->
+                                                <label class="block mb-5">
+                                                    <span class="text-sm font-semibold">D)</span>
+                                                    <input type="text" id="secenekD_edit" value=" <%=data.secenek_d %>"
+                                                        name="secenekD_edit"
+                                                        class="w-full p-2 border border-gray-300 rounded-md">
+                                                </label>
+
+                                                <!-- Doğru Cevap -->
+                                                <select id="cevap" name="dogru_cevap_edit"
+                                                    value=" <%=data.dogru_cevap %>" id="dogru_cevap_edit"
+                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                    <option selected>Doğru cevap seçiniz...</option>
+                                                    <option value="a">A</option>
+                                                    <option value="b">B</option>
+                                                    <option value="c">C</option>
+                                                    <option value="d">D</option>
+                                                </select>
+
+                                                <label for="result"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Çözüm</label>
+                                                <textarea id="soru_aciklama_edit" name="soru_aciklama_edit" rows="4"
+                                                    class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    placeholder="Çözümü bu kısma yazınız..."><%=data.soru_aciklama %></textarea>
+
+                                                <!-- Kaydet Butonu -->
+                                                <!-- Modal footer -->
+                                                <div
+                                                    class="flex items-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                    <button data-modal-hide="edit-modal<%=data.soru_id %>" type="button"
+                                                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                        Soruyu Güncelle</button>
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
 
                     </tr>
-                    <!-- MODAL START -->
-                    <div id="edit-modal<%=data.soru_id %>" tabindex="-1" aria-hidden="true"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                        <div class="relative p-4 w-full max-w-2xl max-h-full">
-                            <!-- Modal content -->
-                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                <!-- Modal header -->
-                                <div
-                                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                        Soru Düzenleme
-                                    </h3>
-                                    <button type="button"
-                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                        data-modal-hide="edit-modal<%=data.soru_id %>">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                </div>
-                                <!-- Modal body -->
 
-                                <div class="p-8">
-                                    <form method="post">
-
-                                        <label for="message"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Soru</label>
-                                        <textarea id="soru_metni_edit" rows="4" name="soru_metni_edit"
-                                            class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Sorunuzu bu kısma yazınız..."> <%=data.soru_metni %></textarea>
-
-                                        <!-- Şık A -->
-                                        <label class="block mb-5">
-                                            <span class="text-sm font-semibold">A)</span>
-                                            <input type="text" id="secenekA_edit" value=" <%=data.secenek_a %>"
-                                                name="secenekA_edit"
-                                                class="w-full p-2 border border-gray-300 rounded-md">
-                                        </label>
-
-                                        <!-- Şık B -->
-                                        <label class="block mb-5">
-                                            <span class="text-sm font-semibold">B)</span>
-                                            <input type="text" id="secenekB_edit" value=" <%=data.secenek_b %>"
-                                                name="secenekB_edit"
-                                                class="w-full p-2 border border-gray-300 rounded-md">
-                                        </label>
-
-                                        <!-- Şık C -->
-                                        <label class="block mb-5">
-                                            <span class="text-sm font-semibold">C)</span>
-                                            <input type="text" id="secenekC_edit" value=" <%=data.secenek_c %>"
-                                                name="secenekC_edit"
-                                                class="w-full p-2 border border-gray-300 rounded-md">
-                                        </label>
-
-                                        <!-- Şık D -->
-                                        <label class="block mb-5">
-                                            <span class="text-sm font-semibold">D)</span>
-                                            <input type="text" id="secenekD_edit" value=" <%=data.secenek_d %>"
-                                                name="secenekD_edit"
-                                                class="w-full p-2 border border-gray-300 rounded-md">
-                                        </label>
-
-                                        <!-- Doğru Cevap -->
-                                        <select id="cevap" name="dogru_cevap_edit" value=" <%=data.dogru_cevap %>"
-                                            id="dogru_cevap_edit"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <option selected>Doğru cevap seçiniz...</option>
-                                            <option value="a">A</option>
-                                            <option value="b">B</option>
-                                            <option value="c">C</option>
-                                            <option value="d">D</option>
-                                        </select>
-
-                                        <label for="result"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Çözüm</label>
-                                        <textarea id="soru_aciklama_edit" name="soru_aciklama_edit" rows="4"
-                                            class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Çözümü bu kısma yazınız..."><%=data.soru_aciklama %></textarea>
-
-                                        <!-- Kaydet Butonu -->
-                                        <!-- Modal footer -->
-                                        <div
-                                            class="flex items-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                            <button data-modal-hide="edit-modal<%=data.soru_id %>" type="button"
-                                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                Soruyu Güncelle</button>
-
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <% }) %>
                         <!-- MODAL END -->
             </tbody>
@@ -223,93 +225,19 @@
                     optgroup.appendChild(option);
                     filter.appendChild(optgroup);
                 });
+
             })
+
 
     }
     function filterTest(value) {
-        fetch(`/admin/get-test/${value}`).then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        }).then(questions => {
-    let tbody = document.querySelector("tbody");
-    tbody.innerHTML = '';
-
-    questions.forEach(data => {
-        tbody.innerHTML += `
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    ${data.soru_id}
-                </td>
-                <td class="px-6 py-4">
-                    ${data.test_id}
-                </td>
-                <td class="px-6 py-4">
-                    ${data.soru_metni}
-                </td>
-                <td class="px-6 py-4">
-                    ${data.soru_aciklama}
-                </td>
-                <td class="px-6 py-4 flex space-x-3">
-                    <a href="#" data-modal-target="edit-modal${data.soru_id}"
-                        data-modal-toggle="edit-modal${data.soru_id}"
-                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Düzenle</a>
-                    <svg id="${data.soru_id}" onclick="deleteQuestion('${data.soru_id}')"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] transition-all">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </td>
-            </tr>
-            <div id="edit-modal${data.soru_id}" tabindex="-1" aria-hidden="true"
-                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative p-4 w-full max-w-2xl max-h-full">
-                    <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        <!-- Modal header -->
-                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                Soru Düzenleme
-                            </h3>
-                            <button type="button"
-                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                data-modal-hide="edit-modal${data.soru_id}">
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 14 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                </svg>
-                                <span class="sr-only">Close modal</span>
-                            </button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="p-8">
-                            <label for="soru_metni_edit"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Soru</label>
-                            <textarea rows="4" name="soru_metni_edit"
-                                class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Sorunuzu bu kısma yazınız...">${data.soru_metni}</textarea>
-                            <!-- Kaydet Butonu -->
-                            <!-- Modal footer -->
-                            <div
-                                class="flex items-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <button data-modal-hide="edit-modal${data.soru_id}" type="button"
-                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    Soruyu Güncelle
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    });
-    createAlert("success", "Başarılı", "Soru başarıyla listelendi.");
-});
-
+        fetch(`/admin/get-test/${value}`)
+    .then(response => response.json())
+    .then(dataList => {
       
+    })
+    .catch(error => console.error("Fetch error:", error));
+
     }
     function updateQuestion(event) {
         const editForm = document.getElementById("edit-form");

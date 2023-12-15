@@ -48,6 +48,19 @@ router.get('/admin/sorular', async(req, res) => {
     res.status(500).send("Sunucu hatası");}
 });
 
+router.get('/admin/soru-duzenle/:soru_id', (req,res) => {
+let soru_id = req.params.soru_id;
+db.query(`SELECT * FROM sorular WHERE soru_id = ?`,[soru_id], (err,sorular)=>{
+
+  const data = {
+    value: "admin-soru-duzenle",
+    title: "Admin-Soru-duzenle",
+    dataList: sorular
+  }
+  res.render('admin/admin-index',data)
+});
+})
+
 //sorular güncelleme 
 router.post('/update/:soruId', (req, res) => {
   const soruId = req.params.soruId;
