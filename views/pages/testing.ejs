@@ -3,147 +3,163 @@
         <div class="px-4 sm:px-6 h-full">
             <div class="mx-auto w-full max-w-md h-full">
 
-                 <!-- Soru Kontrol ve Test Ad START -->
-                 <div class="border-solid border-2 border-indigo-200 px-3 py-3 mt-10 rounded-xl shadow-lg fade-in"
-                 data-aos="fade-up">
-                 <h2 class="mb-3 text-2xl font-medium tracking-tight text-gray-900 text-center">
-                     <% if (dataList.length> 0) { %>
-                         <%= test_ad%> Test soruları
-                             <% } else { %>
-                                 Bu test ile ilgili bir soru bulunamadı.
-                                 <% } %>
-                 </h2>
-
-             </div>
-             <!-- Soru Kontrol ve Test Ad END -->
-
-
-                <% if (dataList.length > 0) { %>
-                <div class="pb-2 pt-4 sm:pt-6 overflow-hidden text-sm font-normal h-full">
-                    
-                    <div class="p-8 border group border-gray-300 shadow-md rounded-xl h-full"data-aos="fade-up">
-                       <div  id="soru" >
-                        <h2 class="text-2xl font-semibold mb-4 fade-in">
-                            <%=dataList[question].soru_metni%>
-                        </h2>
-                    </div>
-
-                        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
-                            <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
-                        </div>
-                        
-
-
-                        <!-- Question number box -->
-                        <div class="mb-4 text-center ">
-                            Soru <span class="font-bold">
-                                <%= question + 1 %>/<%= dataList.length %>
-                            </span>
-                        </div>
-
-                        <!-- Question and options -->
-                        <div class="mb-8">
-                            <div class="space-y-4 text-base">
-                                <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
-                                    <input type="radio" value="a" name="answer" class="mr-2 <%= (dataList[question].dogru_cevap === 'a') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>" onchange='checkAnswer("a")'>
-                                    <%= dataList[question].secenek_a %>
-                                </label>
-                                <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
-                                    <input type="radio" value="b" name="answer" class="mr-2 <%= (dataList[question].dogru_cevap === 'b') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>" onchange='checkAnswer("b")'>
-                                    <%= dataList[question].secenek_b %>
-                                </label>
-                                <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
-                                    <input type="radio" value="c" name="answer" class="mr-2 <%= (dataList[question].dogru_cevap === 'c') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>" onchange='checkAnswer("c")'>
-                                    <%= dataList[question].secenek_c %>
-                                </label>
-                                <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
-                                    <input type="radio" value="d" name="answer" class="mr-2 <%= (dataList[question].dogru_cevap === 'd') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>" onchange='checkAnswer("d")'>
-                                    <%= dataList[question].secenek_d %>
-                                </label>
-                            </div>
-                            
-                            
-                            
-                            
-                            
-                        </div>
-
-                        <!-- Navigation buttons -->
-                        <div class="flex justify-between text-base">
-                            <button class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-md"
-                                id="onceki">Önceki</button>
-                            <button class="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-md"  data-modal-target="cozum-modal" data-modal-toggle="cozum-modal">Çözüm</button>
-                            <button class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-md"
-                                id="sonraki">Sonraki</button>
-
-                           
-                        </div>
-
-                    </div>
+                <!-- Soru Kontrol ve Test Ad START -->
+                <div class="border-solid border-2 border-indigo-200 px-3 py-3 mt-10 rounded-xl shadow-lg fade-in"
+                    data-aos="fade-up">
+                    <h2 class="mb-3 text-2xl font-medium tracking-tight text-gray-900 text-center">
+                        <% if (dataList.length> 0) { %>
+                            <%= test_ad%> Test soruları
+                                <% } else { %>
+                                    Bu test ile ilgili bir soru bulunamadı.
+                                    <% } %>
+                    </h2>
 
                 </div>
+                <!-- Soru Kontrol ve Test Ad END -->
+
+
+                <% if (dataList.length> 0) { %>
+                    <div class="pb-2 pt-4 sm:pt-6 overflow-hidden text-sm font-normal h-full">
+
+                        <div class="p-8 border group border-gray-300 shadow-md rounded-xl h-full" data-aos="fade-up">
+                            <div id="soru">
+                                <h2 class="text-2xl font-semibold mb-4 fade-in">
+                                    <%=dataList[question].soru_metni%>
+                                </h2>
+                            </div>
+
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                                <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
+                            </div>
+
+
+
+                            <!-- Question number box -->
+                            <div class="mb-4 text-center ">
+                                Soru <span class="font-bold">
+                                    <%= question + 1 %>/<%= dataList.length %>
+                                </span>
+                            </div>
+
+                            <!-- Question and options -->
+                            <div class="mb-8">
+                                <div class="space-y-4 text-base">
+                                    <label
+                                        class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+                                        <input type="radio" value="a" name="answer"
+                                            class="mr-2 <%= (dataList[question].dogru_cevap === 'a') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>"
+                                            onchange='checkAnswer("a")'>
+                                        <%= dataList[question].secenek_a %>
+                                    </label>
+                                    <label
+                                        class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+                                        <input type="radio" value="b" name="answer"
+                                            class="mr-2 <%= (dataList[question].dogru_cevap === 'b') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>"
+                                            onchange='checkAnswer("b")'>
+                                        <%= dataList[question].secenek_b %>
+                                    </label>
+                                    <label
+                                        class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+                                        <input type="radio" value="c" name="answer"
+                                            class="mr-2 <%= (dataList[question].dogru_cevap === 'c') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>"
+                                            onchange='checkAnswer("c")'>
+                                        <%= dataList[question].secenek_c %>
+                                    </label>
+                                    <label
+                                        class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+                                        <input type="radio" value="d" name="answer"
+                                            class="mr-2 <%= (dataList[question].dogru_cevap === 'd') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>"
+                                            onchange='checkAnswer("d")'>
+                                        <%= dataList[question].secenek_d %>
+                                    </label>
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <!-- Navigation buttons -->
+                            <div class="flex justify-between text-base">
+                                <button class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-md"
+                                    id="onceki">Önceki</button>
+                                <button class="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-md"
+                                    data-modal-target="cozum-modal" data-modal-toggle="cozum-modal">Çözüm</button>
+                                <button class="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-md"
+                                    id="sonraki">Sonraki</button>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
             </div>
 
         </div>
 
-   
-            <!-- ÇÖZÜM MODAL START -->
-            <div id="cozum-modal" tabindex="-1" aria-hidden="true"
+
+        <!-- ÇÖZÜM MODAL START -->
+        <div id="cozum-modal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50  justify-center items-center w-full h-full"
             data-aos="fade-up" data-aos-duration="1000" data-aos-once="true">
             <div class="bg-white rounded-md p-8 mx-auto w-full md:w-96">
-            <h2 class="text-xl font-bold mb-4">Soru Çözümü</h2>
-            <p id="cozum-modal-content" class="mb-4 text-gray-500"><%= dataList[question].soru_aciklama %></p>
-
-        
-      <div class="flex float-right">
-      <button  data-modal-hide="cozum-modal"
-              class="focus:outline-none text-gray-500 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-          Tamam
-      </button>
-   </div>
-  </div>
-</div>
-<!--ÇÖZÜM MODAL END -->
- 
+                <h2 class="text-xl font-bold mb-4">Soru Çözümü</h2>
+                <p id="cozum-modal-content" class="mb-4 text-gray-500">
+                    <%= dataList[question].soru_aciklama %>
+                </p>
 
 
-<% } %>
+                <div class="flex float-right">
+                    <button data-modal-hide="cozum-modal"
+                        class="focus:outline-none text-gray-500 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                        Tamam
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--ÇÖZÜM MODAL END -->
+
+
+
+        <% } %>
 </main>
 <script>
     var question = <%= question %>;
     var dataList = <%- JSON.stringify(dataList) %>;
     var trueValue = 0;
     var falseValue = 0;
-  
-function checkAnswer(value) {
-    if (value === dataList[question].dogru_cevap) {
-       return 1;
-    }
-    else{
+
+    function checkAnswer(value) {
+    if (value && value.value === dataList[question].dogru_cevap) {
+        return 1;
+    } else {
         return 0;
     }
 }
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log(question);
         updateProgressBar();
         checkQuest();
-       
+
     });
     function checkQuest() {
-        if (question== 0) {
-            document.getElementById("onceki").style.display="none";
+        if (question == 0) {
+            document.getElementById("onceki").style.display = "none";
         }
-        else{document.getElementById("onceki").style.display="block";}
+        else { document.getElementById("onceki").style.display = "block"; }
 
         if (question === dataList.length - 1) {
-            
-        document.getElementById("sonraki").innerHTML = "Bitti";
-        document.getElementById("sonraki").Value = "Bitti";
-    } else {
-        
-        document.getElementById("sonraki").innerHTML = "Sonraki";
-    }
+
+
+            document.getElementById("sonraki").innerHTML = "Bitti";
+            document.getElementById("sonraki").value = "Bitti";
+        } else {
+
+            document.getElementById("sonraki").innerHTML = "Sonraki";
+        }
     }
 
     function updateProgressBar() {
@@ -153,10 +169,10 @@ function checkAnswer(value) {
     }
 
     function updateQuestion() {
-        document.getElementById("soru").innerHTML= `   <h2 class="text-2xl font-semibold mb-4 fade-in" data-aos="fade-left" >
+        document.getElementById("soru").innerHTML = `   <h2 class="text-2xl font-semibold mb-4 fade-in" data-aos="fade-left" >
                             ${dataList[question].soru_metni}
                         </h2>`;
-  
+
         document.querySelector('.mb-4.text-center').innerHTML = `
             
             Soru <span class="font-bold">${question + 1}/${dataList.length}</span>`;
@@ -186,42 +202,57 @@ function checkAnswer(value) {
         checkQuest();
     }
     function updateModalContent() {
-    document.getElementById("cozum-modal-content").innerHTML = dataList[question].soru_aciklama;
+        document.getElementById("cozum-modal-content").innerHTML = dataList[question].soru_aciklama;
     }
-   
-    document.getElementById("onceki").addEventListener("click", ()=>{
+
+    document.getElementById("onceki").addEventListener("click", () => {
         if (question > 0) {
+
             question -= 1;
             updateQuestion();
             updateProgressBar();
             checkQuest();
             updateModalContent();
         }
+        console.log(question);
     });
 
     document.getElementById("sonraki").addEventListener("click", () => {
-    var innerHTMLValue = document.getElementById("sonraki").innerHTML;
-    if (innerHTMLValue ==="Bitti") {
-    console.log(trueValue);
-    }
+        var selectedOption = document.querySelector('input[name="answer"]:checked');
+        var message = selectedOption ? "Seçili olan RadioButton değeri: " + selectedOption.value : "Hiçbir seçenek seçili değil.";
 
-    var selectedValue = document.querySelector('input[name="answer"]:checked');
-    var userAnswer = selectedValue ? selectedValue.value : null;
+        if (checkAnswer(selectedOption) == 1) {
+            trueValue += 1;
+            console.log(`Cevabınız doğruydu Doğru sayınız: ${trueValue}  `);
+        } else {
+            falseValue+=1;
+            console.log(`Cevabınız yanlıştı Yanlış sayınız: ${falseValue}  `);
+        }
+        
+        var innerHTMLValue = document.getElementById("sonraki").innerHTML;
+        if (innerHTMLValue === "Bitti" & question == dataList.length - 1) {
+            Swal.fire({
+                title: "Tebrikler",
+                icon: "success",
+                text: `Dogru Sayınız: ${trueValue} Yanlış Sayınız: ${falseValue}`
+            })
+        }
 
-  
-    var result = checkAnswer(userAnswer);
+        var selectedValue = document.querySelector('input[name="answer"]:checked');
+        var userAnswer = selectedValue ? selectedValue.value : null;
 
-   
-    if (question < dataList.length - 1) {
-        trueValue += result;
-        question += 1;
-        updateQuestion();
-        updateProgressBar();
-        checkQuest();
-        updateModalContent();
-    }
-    
-});
 
-  
+        var result = checkAnswer(userAnswer);
+        if (question < dataList.length - 1) {
+
+            question += 1;
+            updateQuestion();
+            updateProgressBar();
+            checkQuest();
+            updateModalContent();
+        }
+        console.log(question);
+    });
+
+
 </script>

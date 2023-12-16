@@ -59,7 +59,36 @@ db.query(`SELECT * FROM sorular WHERE soru_id = ?`,[soru_id], (err,sorular)=>{
   }
   res.render('admin/admin-index',data)
 });
+});
+
+router.post('/admin/soru-duzenle/:soru_id', (req,res) =>{
+let soru_id = req.params.soru_id;
+let test_id = req.body.test_id;
+let soru_metni = req.body.soru_metni;
+let soru_aciklama = req.body.soru_aciklama;
+let secenek_a = req.body.secenek_a;
+let secenek_b = req.body.secenek_b;
+let secenek_c = req.body.secenek_c;
+let secenek_d = req.body.secenek_d;
+let dogru_cevap = req.body.dogru_cevap;
+
+
+const sql = `
+UPDATE sorular
+SET test_id = ?, soru_metni = ?, soru_aciklama = ?, secenek_a = ?, secenek_b = ?, secenek_c = ?, secenek_d = ?, dogru_cevap = ?
+WHERE soru_id = ?;
+`;
+
+db.query(sql, [test_id,soru_metni, soru_aciklama, secenek_a, secenek_b, secenek_c, secenek_d, dogru_cevap, soru_id], (error,results) => {
+  if (error) {
+    console.error('Error updating record:', error);
+    res.status(500).send('Internal Server Error');
+} else {
+   res.redirect('/admin/sorular');
+}
 })
+
+});
 
 //sorular güncelleme 
 router.post('/update/:soruId', (req, res) => {
@@ -140,7 +169,7 @@ router.get('/admin/edit-question/:soru_id', (req, res) => {
       // Hatasını uygun bir şekilde işleyin, örneğin istemciye bir hata yanıtı gönderin.
       res.status(500).json({ hata: 'Soru alınırken hata oluştu' });
     } else {
-      console.log(result);
+     
       res.status(200).json(result[0]); // result bir dizi olduğundan, [0] ile ilk öğeyi alıyoruz.
     }
   });

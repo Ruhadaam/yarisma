@@ -1,53 +1,64 @@
 <div class="flex items-center justify-center h-screen bg-gray-100 p-0">
-    <div class="bg-white p-8 rounded shadow-md w-full sm:w-96 lg:w-1/2">
-<% dataList.forEach(data=> { %>
+  <div class="bg-white p-8 rounded shadow-md w-full sm:w-96 lg:w-1/2">
+    <% dataList.forEach(data=> { %>
 
-        <form>
-          <label class="block mb-4 text-sm font-medium text-gray-900 dark:text-white">
-            <span class="text-gray-700">Soru Metni</span>
-            <textarea class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" rows="3" placeholder="Sorunuzu buraya yazınız"><%=data.soru_metni%></textarea>
-          </label>
-    
-          <label class="block mb-4 text-sm font-medium text-gray-900 dark:text-white">
-            <span class="text-gray-700">Soru Açıklama</span>
-            <textarea class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" rows="3" placeholder="Sorunuzun açıklamasını buraya yazınız"><%=data.soru_aciklama%></textarea>
-          </label>
-    
-          <label class="block mb-4">
-            <span class="text-gray-700">Seçenek A</span>
-            <input type="text" class="w-full p-2 border border-gray-300 rounded-md" value="<%=data.secenek_a%>" placeholder="Seçenek A">
-          </label>
-    
-          <label class="block mb-4">
-            <span class="text-gray-700">Seçenek B</span>
-            <input type="text" class="w-full p-2 border border-gray-300 rounded-md" value="<%=data.secenek_b%>" placeholder="Seçenek B">
-          </label>
-    
-          <label class="block mb-4">
-            <span class="text-gray-700">Seçenek C</span>
-            <input type="text" class="w-full p-2 border border-gray-300 rounded-md" value="<%=data.secenek_c%>" placeholder="Seçenek C">
-          </label>
-    
-          <label class="block mb-4">
-            <span class="text-gray-700">Seçenek D</span>
-            <input type="text" class="w-full p-2 border border-gray-300 rounded-md" value="<%=data.secenek_d%>" placeholder="Seçenek D">
-          </label>
-    
-          <label class="block mb-4">
-            <span class="text-gray-700">Doğru Cevap</span>
-            <select id="cevap" name="dogru_cevap" id="dogru_cevap"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>Doğru cevap seçiniz...</option>
-                        <option value="a">A</option>
-                        <option value="b">B</option>
-                        <option value="c">C</option>
-                        <option value="d">D</option>
-                    </select>
-          </label>
-    
-          <button class="focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Formu Gönder</button>
-        </form>
-      
-    <% }) %>
-</div>
+      <form method="POST">
+        <input type="hidden" name="test_id" value="<%=data.test_id %>">
+        <label class="block mb-4 text-sm font-medium text-gray-900 dark:text-white">
+          <span class="text-gray-700">Soru Metni</span>
+          <textarea name="soru_metni"
+            class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            rows="3" placeholder="Sorunuzu buraya yazınız"><%=data.soru_metni%></textarea>
+        </label>
+
+        <label class="block mb-4 text-sm font-medium text-gray-900 dark:text-white">
+          <span class="text-gray-700">Soru Açıklama</span>
+          <textarea name="soru_aciklama"
+            class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            rows="3" placeholder="Sorunuzun açıklamasını buraya yazınız"><%=data.soru_aciklama%></textarea>
+        </label>
+
+        <label class="block mb-4">
+          <span class="text-gray-700">Seçenek A</span>
+          <input type="text" name="secenek_a" class="w-full p-2 border border-gray-300 rounded-md"
+            value="<%=data.secenek_a%>" placeholder="Seçenek A">
+        </label>
+
+        <label class="block mb-4">
+          <span class="text-gray-700">Seçenek B</span>
+          <input type="text" name="secenek_b" class="w-full p-2 border border-gray-300 rounded-md"
+            value="<%=data.secenek_b%>" placeholder="Seçenek B">
+        </label>
+
+        <label class="block mb-4">
+          <span class="text-gray-700">Seçenek C</span>
+          <input type="text" name="secenek_c" class="w-full p-2 border border-gray-300 rounded-md"
+            value="<%=data.secenek_c%>" placeholder="Seçenek C">
+        </label>
+
+        <label class="block mb-4">
+          <span class="text-gray-700">Seçenek D</span>
+          <input type="text" name="secenek_d" class="w-full p-2 border border-gray-300 rounded-md"
+            value="<%=data.secenek_d%>" placeholder="Seçenek D">
+        </label>
+
+        <label class="block mb-4">
+          <span class="text-gray-700">Doğru Cevap</span>
+          <select name="dogru_cevap" id="dogru_cevap"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <option value="a" <%=data.dogru_cevap==='a' ? 'selected' : '' %>>A</option>
+            <option value="b" <%=data.dogru_cevap==='b' ? 'selected' : '' %>>B</option>
+            <option value="c" <%=data.dogru_cevap==='c' ? 'selected' : '' %>>C</option>
+            <option value="d" <%=data.dogru_cevap==='d' ? 'selected' : '' %>>D</option>
+          </select>
+
+        </label>
+
+        <button
+          class="focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Soruyu
+          Güncelle</button>
+      </form>
+
+      <% }) %>
+  </div>
 </div>
