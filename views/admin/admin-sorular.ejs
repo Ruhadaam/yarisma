@@ -42,10 +42,18 @@
                             <%=data.test_id %>
                         </td>
                         <td class="px-6 py-4">
-                            <%=data.soru_metni %>
+                            <% if (data.soru_metni.length > 100) { %>
+                            <%= data.soru_metni.slice(0, 100) + '...' %>
+                            <% } else { %>
+                                <%= data.soru_metni %>
+                              <% } %>
                         </td>
                         <td class="px-6 py-4">
-                            <%=data.soru_aciklama %>
+                            <% if (data.soru_aciklama.length > 100) { %>
+                            <%= data.soru_aciklama.slice(0, 100) + '...' %>
+                            <% } else { %>
+                                <%= data.soru_metni %>
+                              <% } %>
                         </td>
 
                         <td class="px-6 py-4 flex space-x-3">
