@@ -1,11 +1,22 @@
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
 const app = new express();
 const router = require('./routes/route');
 const adminRoute = require('./routes/admin-route');
 
 
-
+// express-session middleware'ini kullanın
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+  }));
+  
+  // Diğer middleware'leri ve ayarları ekleyin
+  
+  app.use('/', router);
+  app.use('/admin', adminRoute);
 
 app.set('view engine', 'ejs');
 app.use('/css', express.static(path.join(__dirname, 'views', 'assets', 'css')));
