@@ -1,11 +1,14 @@
-<div class="p-11 h-full  flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-md  w-1/2">
+<div class="p-5 md:p-11 h-full flex items-center justify-center">
+    <div class="bg-white p-5 md:p-8 rounded-lg shadow-md w-full md:w-1/2 lg:w-1/2">
 
-        <h1 class="text-2xl font-semibold mb-10">Test Ekleme</h1>
+        <h1 class="text-2xl font-semibold mb-5 md:mb-10">Test Ekleme</h1>
 
         <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori</label>
 
-
+        <label class="block mb-5">
+            <span class="text-sm font-semibold">Test Adı</span>
+            <input type="text" id="test_ad" name="test_ad" class="w-full p-2 border border-gray-300 rounded-md">
+        </label>
 
         <select id="categories" onchange="getTests()"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -21,10 +24,7 @@
 
                     <% }) %>
         </select>
-        <label class="block mb-5">
-            <span class="text-sm font-semibold">Test Adı</span>
-            <input type="text" id="test_ad" name="test_ad" class="w-full p-2 border border-gray-300 rounded-md">
-        </label>
+
 
         <button type="button" id="addTest" onclick="createTest()"
             class="focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 m-5">Test
@@ -34,6 +34,7 @@
         <hr class="mb-5">
 
         <h1 class="text-2xl font-semibold mb-5">Soru Ekleme</h1>
+
         <form method="post" onsubmit="yenile()">
             <select id="tests" name="test" onchange="getQuestion()"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -46,30 +47,21 @@
             <h1 class="text-2xl font-semibold mb-5">Sorular</h1>
 
 
-            <div id="sorular"
-                class="w-100 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                <a href="#"
-                    class="flex justify-between w-full px-4 py-2  border-gray-200 cursor-pointer  hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+            <div id="sorular" class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <a href="#" class="flex justify-between w-full px-4 py-2 border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
                     Örnek Soru
                     <div class="flex space-x-2">
-                     
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-6 h-6 text-red-700   rotate-0 hover:rotate-[30deg] transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] transition-all">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </div>
                 </a>
-
             </div>
 
             <div class="flex justify-between">
-                <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button"
-                    class=" flex justify-between focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2.5  ">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <button data-modal-target="default-modal" data-modal-toggle="default-modal" type="button" class="flex justify-between focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     Soru Ekle
                 </button>
@@ -136,67 +128,7 @@
                         Ekle</button>
                 </div>
             </div>
-            <div id="edit-modal" tabindex="-1" aria-hidden="true"
-            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-full md:inset-0">
-            <div class="bg-white p-8 md:w-96 mx-auto">
 
-
-                <label for="message"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Soru</label>
-                <textarea id="soru_metni_edit" rows="4" name="soru_metni_edit"
-                    class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Sorunuzu bu kısma yazınız..."></textarea>
-
-                <!-- Şık A -->
-                <label class="block mb-5">
-                    <span class="text-sm font-semibold">A)</span>
-                    <input type="text" id="secenekA_edit" name="secenekA_edit"
-                        class="w-full p-2 border border-gray-300 rounded-md">
-                </label>
-
-                <!-- Şık B -->
-                <label class="block mb-5">
-                    <span class="text-sm font-semibold">B)</span>
-                    <input type="text" id="secenekB_edit" name="secenekB_edit"
-                        class="w-full p-2 border border-gray-300 rounded-md">
-                </label>
-
-                <!-- Şık C -->
-                <label class="block mb-5">
-                    <span class="text-sm font-semibold">C)</span>
-                    <input type="text" id="secenekC_edit" name="secenekC_edit"
-                        class="w-full p-2 border border-gray-300 rounded-md">
-                </label>
-
-                <!-- Şık D -->
-                <label class="block mb-5">
-                    <span class="text-sm font-semibold">D)</span>
-                    <input type="text" id="secenekD_edit" name="secenekD_edit"
-                        class="w-full p-2 border border-gray-300 rounded-md">
-                </label>
-
-                <!-- Doğru Cevap -->
-                <select id="cevap" name="dogru_cevap_edit" id="dogru_cevap_edit"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Doğru cevap seçiniz...</option>
-                    <option value="a">A</option>
-                    <option value="b">B</option>
-                    <option value="c">C</option>
-                    <option value="d">D</option>
-                </select>
-
-                <label for="result"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Çözüm</label>
-                <textarea id="soru_aciklama_edit" name="soru_aciklama_edit" rows="4"
-                    class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Çözümü bu kısma yazınız..."></textarea>
-
-                <!-- Kaydet Butonu -->
-                <button type="submit" data-modal-hide="edit-modal"
-                    class="focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Soru
-                    Ekle</button>
-            </div>
-        </div>
 
         </form>
     </div>
@@ -215,29 +147,29 @@
 
 
 
- 
+
         var testsSelect = document.getElementById('tests');
 
-      
+
         if (testsSelect) {
-            
+
             fetch('/admin/get-tests/' + categoryId)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    return response.json(); 
+                    return response.json();
                 })
                 .then(tests => {
                     testsSelect.innerHTML = '';
 
 
                     var defaultOption = document.createElement('option');
-                    defaultOption.value = ''; 
-                    defaultOption.text = 'Test Seç'; 
+                    defaultOption.value = '';
+                    defaultOption.text = 'Test Seç';
                     testsSelect.appendChild(defaultOption);
 
-                   
+
                     tests.forEach(test => {
                         var option = document.createElement('option');
                         option.value = test.test_id;
@@ -356,9 +288,9 @@
                     // Edit butonuna tıklanınca yapılacak işlemleri burada gerçekleştirin
                 }
 
-                
-                   
-               
+
+
+
 
             })
             .catch(error => {
@@ -380,27 +312,27 @@
                 return response.json();
             })
             .then(data => {
-                createAlert("success","Başarılı","Soru başarıyla silindi.");
+                createAlert("success", "Başarılı", "Soru başarıyla silindi.");
                 getQuestion();
             })
             .catch(error => {
                 console.error('Soru silinirken hata oluştu:', error);
-                createAlert("error","Hata",error);
+                createAlert("error", "Hata", error);
             });
 
 
     }
     function yenile() {
 
-     
+
         Swal.fire({
             title: "Başarılı!",
             icon: "success",
             text: "Soru başarıyla kaydedildi."
         })
-        .then(result => {
-            // Doğru alan isimlerini kontrol edin
-            let soru_metni = document.getElementById("soru_metni").value = "";
+            .then(result => {
+                // Doğru alan isimlerini kontrol edin
+                let soru_metni = document.getElementById("soru_metni").value = "";
                 let secenekA = document.getElementById("secenekA").value = "";
                 let secenekB = document.getElementById("secenekB").value = "";
                 let secenekC = document.getElementById("secenekC").value = "";
@@ -409,7 +341,7 @@
                 let soru_aciklama = document.getElementById("soru_aciklama").value = ""; // soru_cozum değil
 
 
-        });
+            });
     }
 
 
