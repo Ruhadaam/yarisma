@@ -72,6 +72,13 @@
                                             onchange='checkAnswer("d")'>
                                         <%= dataList[question].secenek_d %>
                                     </label>
+                                    <label
+                                        class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+                                        <input type="radio" value="e" name="answer"
+                                            class="mr-2 <%= (dataList[question].dogru_cevap === 'e') ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500' %>"
+                                            onchange='checkAnswer("e")'>
+                                        <%= dataList[question].secenek_e %>
+                                    </label>
                                 </div>
 
 
@@ -132,12 +139,12 @@
     var falseValue = 0;
 
     function checkAnswer(value) {
-    if (value && value.value === dataList[question].dogru_cevap) {
-        return 1;
-    } else {
-        return 0;
+        if (value && value.value === dataList[question].dogru_cevap) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
-}
 
     document.addEventListener("DOMContentLoaded", function () {
         console.log(question);
@@ -181,21 +188,26 @@
         document.querySelector('.mb-8').innerHTML = `
     <div class="space-y-4 text-base" data-aos="fade-left">
         <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
-            <input type="radio" name="answer" class="mr-2 ${dataList[question].dogru_cevap !== "a" ? 'text-red-600 focus:ring-red-500' : ''}">
+            <input type="radio" value="a" name="answer" class="mr-2 ${dataList[question].dogru_cevap === "a" ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500'}">
             ${dataList[question].secenek_a}
         </label>
         <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
-            <input type="radio" name="answer" class="mr-2 ${dataList[question].dogru_cevap !== "b" ? 'text-red-600 focus:ring-red-500' : ''}">
+            <input type="radio" value="b" name="answer" class="mr-2 ${dataList[question].dogru_cevap === "b" ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500'}">
             ${dataList[question].secenek_b}
         </label>
         <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
-            <input type="radio" name="answer" class="mr-2 ${dataList[question].dogru_cevap === "c" ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500'}">
+            <input type="radio" value="c" name="answer" class="mr-2 ${dataList[question].dogru_cevap === "c" ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500'}">
             ${dataList[question].secenek_c}
         </label>
         <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
-            <input type="radio" name="answer" class="mr-2 ${dataList[question].dogru_cevap !== "d" ? 'text-red-600 focus:ring-red-500' : ''}">
+            <input type="radio" value="d" name="answer" class="mr-2 ${dataList[question].dogru_cevap === "d" ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500'}">
             ${dataList[question].secenek_d}
         </label>
+        <label class="block transition duration-300 ease-in-out transform hover:scale-105 hover:border-blue-700 border rounded-md p-2">
+            <input type="radio" value="e" name="answer" class="mr-2 ${dataList[question].dogru_cevap === "e" ? 'text-green-600 focus:ring-green-500' : 'text-red-600 focus:ring-red-500'}">
+            ${dataList[question].secenek_e}
+        </label>
+        
     </div>
 `;
 
@@ -219,30 +231,31 @@
 
     document.getElementById("sonraki").addEventListener("click", () => {
         var selectedOption = document.querySelector('input[name="answer"]:checked');
-        var message = selectedOption ? "Seçili olan RadioButton değeri: " + selectedOption.value : "Hiçbir seçenek seçili değil.";
 
         if (checkAnswer(selectedOption) == 1) {
             trueValue += 1;
-            console.log(`Cevabınız doğruydu Doğru sayınız: ${trueValue}  `);
+
         } else {
-            falseValue+=1;
-            console.log(`Cevabınız yanlıştı Yanlış sayınız: ${falseValue}  `);
+            falseValue += 1;
+
         }
-        
+
         var innerHTMLValue = document.getElementById("sonraki").innerHTML;
         if (innerHTMLValue === "Bitti" & question == dataList.length - 1) {
             Swal.fire({
                 title: "Tebrikler",
                 icon: "success",
-                text: `Dogru Sayınız: ${trueValue} Yanlış Sayınız: ${falseValue}`
-            })
+                text: `Doğru Sayınız: ${trueValue} Yanlış Sayınız: ${falseValue}`
+            }).then((result) => {
+                // Kullanıcı "Tamam" butonuna tıkladığında bu blok çalışır
+                if (result.isConfirmed) {
+                    // Ana sayfaya yönlendirme yapabilirsiniz
+                    window.location.href = "/";
+                }
+            });
         }
 
-        var selectedValue = document.querySelector('input[name="answer"]:checked');
-        var userAnswer = selectedValue ? selectedValue.value : null;
 
-
-        var result = checkAnswer(userAnswer);
         if (question < dataList.length - 1) {
 
             question += 1;
@@ -251,7 +264,7 @@
             checkQuest();
             updateModalContent();
         }
-        console.log(question);
+
     });
 
 

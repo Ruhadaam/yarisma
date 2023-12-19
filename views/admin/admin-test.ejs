@@ -106,17 +106,24 @@
                             class="w-full p-2 border border-gray-300 rounded-md">
                     </label>
 
+                    <label class="block mb-5">
+                        <span class="text-sm font-semibold">E)</span>
+                        <input type="text" id="secenekE" name="secenekE"
+                            class="w-full p-2 border border-gray-300 rounded-md">
+                    </label>
+
                     <!-- Doğru Cevap -->
-                    <select id="cevap" name="dogru_cevap" id="dogru_cevap"
+                    <select id="dogru_cevap" name="dogru_cevap"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Doğru cevap seçiniz...</option>
                         <option value="a">A</option>
                         <option value="b">B</option>
                         <option value="c">C</option>
                         <option value="d">D</option>
+                        <option value="e">E</option>
                     </select>
 
-                    <label for="result"
+                    <label for="soru_aciklama"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Çözüm</label>
                     <textarea id="soru_aciklama" name="soru_aciklama" rows="4"
                         class="block p-2.5 w-full text-sm mb-5 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -271,25 +278,13 @@
 
                         sorularElement.appendChild(questionElement);
 
-                        // Tıklama olayları burada eklenir
-                        questionElement.querySelector(`svg#edit_${question.soru_id}`).addEventListener('click', function () {
-                            editQuestion(question.soru_id);
-                        });
+                    
 
                         questionElement.querySelector(`svg#sil_${question.soru_id}`).addEventListener('click', function () {
                             deleteQuestion(question.soru_id);
                         });
                     });
                 }
-
-                // Dışa çıkarılmış olay dinleyici fonksiyonları
-                function editQuestion(soru_id) {
-                    console.log(`Edit butonuna tıklandı - soru_id: ${soru_id}`);
-                    // Edit butonuna tıklanınca yapılacak işlemleri burada gerçekleştirin
-                }
-
-
-
 
 
             })
@@ -337,6 +332,7 @@
                 let secenekB = document.getElementById("secenekB").value = "";
                 let secenekC = document.getElementById("secenekC").value = "";
                 let secenekD = document.getElementById("secenekD").value = "";
+                let secenekE = document.getElementById("secenekE").value = "";
                 let dogru_cevap = document.getElementById("dogru_cevap").value = "";
                 let soru_aciklama = document.getElementById("soru_aciklama").value = ""; // soru_cozum değil
 
