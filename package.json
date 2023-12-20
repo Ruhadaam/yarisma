@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
+    "dev": "nodemon app.js",
+    "start": "node app.js",
     "style": "npx tailwindcss -i ./views/assets/css/input.css -o ./views/assets/css/output.css --watch"
   },
   "keywords": [],
@@ -13,10 +14,12 @@
   "license": "ISC",
   "dependencies": {
     "aos": "^2.3.4",
+    "compression": "^1.7.4",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "flowbite": "^2.2.0",
+    "helmet": "^7.1.0",
     "mysql2": "^3.6.5"
   },
   "devDependencies": {

@@ -4,6 +4,11 @@ const session = require('express-session');
 const app = new express();
 const router = require('./routes/route');
 const adminRoute = require('./routes/admin-route');
+if (process.env.NODE_ENV == "production") {
+  require('./production');
+}
+
+
 
 
 // express-session middleware'ini kullanın
@@ -29,9 +34,9 @@ app.use(express.urlencoded({ extended: false}))
 app.use(router);
 app.use(adminRoute);
 
+const port = process.env.PORT || 3000;
 
+app.listen(port, () => {
 
-app.listen(3000, () => {
-
-    console.log('This serve is using 3000 port');
+    console.log(`This serve is using ${port} port`);
 })
