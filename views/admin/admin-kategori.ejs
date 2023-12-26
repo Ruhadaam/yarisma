@@ -30,19 +30,27 @@
         <h1 class="text-2xl font-semibold mb-4">Kategori Listesi</h1>
         <div
             class="w-100 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-            <% if (dataList && dataList.length> 0) { %>
+            <% if (dataList && dataList.length > 0) { %>
                 <% dataList.forEach(function(data, i) { %>
-                    <!-- Var olan içerik -->
-                    <a href="#"
-                        class="flex justify-between w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
-                        <%= data.kategori_ad %>
-                            <svg xmlns="http://www.w3.org/2000/svg" onclick="deleteCategory(<%= data.kategori_id %>)"
-                                fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] transition-all">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
+                  <!-- Var olan içerik -->
+                  <div class="flex justify-between w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                    <a href="#" class="flex items-center">
+                      <%= data.kategori_ad %>
                     </a>
-                    <% }) %>
+                    <div class="flex items-center space-x-2">
+                      <!-- Düzenleme butonu/linki -->
+                      <a href="/admin/kategori-duzenle/<%= data.kategori_id %>" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Düzenle</a>
+                      <!-- Silme ikonu -->
+                      <svg xmlns="http://www.w3.org/2000/svg" onclick="deleteCategory(<%= data.kategori_id %>)"
+                        fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                        class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] transition-all">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </div>
+                  </div>
+                <% }) %>
+              
+              
                         <% } else { %>
                             <!-- Eğer dataList boşsa gösterilecek hata mesajı -->
                             <p class="text-red-700">Veri bulunamadı.</p>

@@ -172,7 +172,7 @@ router.post('/admin/test-ekle', requireAdminLogin, (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
-  db.query(query, [test_id, soru_metni, soru_aciklama, secenek_A, secenek_B, secenek_C, secenek_D,secenek_E, dogru_cevap], (err, result) => {
+  db.query(query, [test_id, soru_metni, soru_aciklama, secenek_A, secenek_B, secenek_C, secenek_D, secenek_E, dogru_cevap], (err, result) => {
     if (err) {
       console.error('Soru eklenirken hata oluştu:', err);
       // Hata durumunda bir şey yapabilirsiniz, örneğin istemciye bir hata mesajı gönderebilirsiniz.
@@ -214,6 +214,47 @@ router.get('/admin/kategori-ekle', requireAdminLogin, (req, res) => {
     res.render('admin/admin-index', data);
   });
 
+
+});
+
+router.get('/admin/kategori-duzenle/:kategori_id', requireAdminLogin, (req, res) => {
+  let kategori_id = req.params.kategori_id;
+
+  db.query('SELECT * FROM kategoriler WHERE kategori_id = ?', [kategori_id], (err, result) => {
+    const data = {
+      value: "admin-kategori-duzenle",
+      title: "admin-kategori-duzenle",
+      dataList: result
+    }
+
+    res.render('admin/admin-index', data);
+
+
+  })
+
+});
+
+router.post('/admin/kategori-duzenle/:kategori_id', requireAdminLogin, (req, res) => {
+  let kategori_id = req.params.kategori_id;
+  let kategori_ad = req.body.kategori_ad;
+  let kategori_aciklama = req.body.kategori_aciklama;
+  const sql = `
+  UPDATE kategoriler
+  SET kategori_ad = ?, kategori_aciklama = ? WHERE kategori_id = ?;
+`;
+
+db.query(sql, [kategori_ad, kategori_aciklama, kategori_id], (err, result) => {
+  if (err) {
+      console.error('Error updating record:', error);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.redirect('/admin/kategori-ekle');
+    }
+
+   
+
+
+  })
 
 });
 
@@ -273,6 +314,7 @@ router.get('/admin/create/:kategori_id/:kategori_ad/:kategori_aciklama/:test_ad'
   const kategori_id = req.params.kategori_id;
   const kategori_aciklama = req.params.kategori_aciklama;
   const test_ad = req.params.test_ad;
+  console.log(req.params);
 
   // Yeni testi ekle
   db.query("INSERT INTO testler(kategori_id, kategori_ad, kategori_aciklama, test_ad) VALUES (?, ?, ?, ?)", [kategori_id, kategori_ad, kategori_aciklama, test_ad], (err, result) => {

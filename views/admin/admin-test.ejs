@@ -3,13 +3,13 @@
 
         <h1 class="text-2xl font-semibold mb-5 md:mb-10">Test Ekleme</h1>
 
-        <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori</label>
+       
 
         <label class="block mb-5">
             <span class="text-sm font-semibold">Test Adı</span>
             <input type="text" id="test_ad" name="test_ad" class="w-full p-2 border border-gray-300 rounded-md">
         </label>
-
+        <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori</label>
         <select id="categories" onchange="getTests()"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-5 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             >
@@ -205,15 +205,19 @@
                     throw new Error('Network response was not ok');
                 }
                 return response.json(); // JSON formatında yanıt al
+                
             })
 
 
 
             .then(result => {
+             
+                
                 let kategori_ad = result[0].kategori_ad;
                 let kategori_aciklama = result[0].kategori_aciklama;
                 let kategori_id = result[0].kategori_id;
-                console.log(result[0].kategori_aciklama);
+               
+                
                 fetch('/admin/create/' + kategori_id + '/' + kategori_ad + '/' + kategori_aciklama + '/' + test_ad).then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
