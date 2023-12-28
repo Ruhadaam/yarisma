@@ -3,6 +3,7 @@ const router = express.Router();
 const session = require('express-session');
 const db = require('../data/db');
 const util = require('util');
+
 const queryAsync = util.promisify(db.query).bind(db);
 
 router.post('/admin/login', async (req, res) => {
@@ -153,9 +154,11 @@ router.get('/admin/test-ekle', requireAdminLogin, (req, res) => {
 
 });
 
+
 //test ekleme sayfası post
-router.post('/admin/test-ekle', requireAdminLogin, (req, res) => {
-  let test_id = req.body.test;
+  router.post('/admin/test-ekle', requireAdminLogin, (req, res) => {
+    console.log(req.body);
+  let test_id = req.body.test_id;
   let soru_metni = req.body.soru_metni;
   let soru_aciklama = req.body.soru_aciklama;
   let secenek_A = req.body.secenekA;
@@ -164,25 +167,27 @@ router.post('/admin/test-ekle', requireAdminLogin, (req, res) => {
   let secenek_D = req.body.secenekD;
   let secenek_E = req.body.secenekE;
   let dogru_cevap = req.body.dogru_cevap;
+  
 
-
-
+  
   const query = `
-    INSERT INTO sorular (test_id, soru_metni, soru_aciklama, secenek_a, secenek_b, secenek_c, secenek_d,secenek_e, dogru_cevap)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `;
+  INSERT INTO sorular (test_id, soru_metni, soru_aciklama, secenek_a, secenek_b, secenek_c, secenek_d, secenek_e, dogru_cevap)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+`;
 
-  db.query(query, [test_id, soru_metni, soru_aciklama, secenek_A, secenek_B, secenek_C, secenek_D, secenek_E, dogru_cevap], (err, result) => {
-    if (err) {
-      console.error('Soru eklenirken hata oluştu:', err);
-      // Hata durumunda bir şey yapabilirsiniz, örneğin istemciye bir hata mesajı gönderebilirsiniz.
-    } else {
-      console.log('Soru başarıyla eklendi.');
-
-    }
-  });
-
+db.query(query, [test_id, soru_metni, soru_aciklama, secenek_A, secenek_B, secenek_C, secenek_D, secenek_E, dogru_cevap], (err, result) => {
+  if (err) {
+    console.error('Soru eklenirken hata oluştu:', err);
+    res.status(500).send('Internal Server Error');
+  } else {
+    res.status(200).json({ message: 'Soru başarıyla eklendi..' });
+  }
 });
+
+    
+  });
+  
+
 
 
 router.get('/admin/edit-question/:soru_id', requireAdminLogin, (req, res) => {
