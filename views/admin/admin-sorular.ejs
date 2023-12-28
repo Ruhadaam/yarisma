@@ -42,11 +42,20 @@
                             <%=data.test_id %>
                         </td>
                         <td class="px-6 py-4">
-                            <%=data.soru_metni %>
+                            <% if (data.soru_metni.length> 100) { %>
+                                <%= data.soru_metni.slice(0, 100) + '...' %>
+                                    <% } else { %>
+                                        <%= data.soru_metni %>
+                                            <% } %>
                         </td>
                         <td class="px-6 py-4">
-                            <%=data.soru_aciklama %>
+                            <% if (data.soru_aciklama.length> 100) { %>
+                                <%= data.soru_aciklama.slice(0, 100) + '...' %>
+                                    <% } else { %>
+                                        <%= data.soru_aciklama %>
+                                            <% } %>
                         </td>
+
 
                         <td class="px-6 py-4 flex space-x-3">
                             <a href="/admin/soru-duzenle/<%=data.soru_id %>"
@@ -143,19 +152,20 @@
 
                 dataList.forEach(data => {
                     tbody.innerHTML += `
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    ${data.soru_id}
-                </td>
-                <td class="px-6 py-4">
-                    ${data.test_id}
-                </td>
-                <td class="px-6 py-4">
-                    ${data.soru_metni}
-                </td>
-                <td class="px-6 py-4">
-                    ${data.soru_aciklama}
-                </td>
+  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+      ${data.soru_id}
+    </td>
+    <td class="px-6 py-4">
+      ${data.test_id}
+    </td>
+    <td class="px-6 py-4">
+      ${data.soru_metni.length > 100 ? (data.soru_metni.slice(0, 100) + '...') : data.soru_metni}
+    </td>
+    <td class="px-6 py-4">
+      ${data.soru_aciklama.length > 100 ? (data.soru_aciklama.slice(0, 100) + '...') : data.soru_aciklama}
+    </td>
+
                 <td class="px-6 py-4 flex space-x-3">
                     <a href="/admin/soru-duzenle/${data.soru_id}"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Düzenle</a>
