@@ -311,7 +311,16 @@ router.get('/admin/get-tests', requireAdminLogin, (req, res) => {
     res.send(results);
 
   })
+});
+
+router.get('/admin/get-category', requireAdminLogin, (req, res) => {
+  db.query(`SELECT * FROM kategoriler `, (err, results) => {
+    res.send(results);
+
+  })
 })
+
+
 
 //Soru Ekleme sayfası
 router.get('/admin/create/:kategori_id/:kategori_ad/:kategori_aciklama/:test_ad', requireAdminLogin, (req, res) => {
@@ -374,6 +383,24 @@ router.delete('/admin/delete-kategori/:kategori_id', requireAdminLogin, (req, re
       res.status(200).json({ message: 'Kategoriler başarıyla silindi.' });
     }
   });
+});
+
+router.get('/admin/test-duzenle/:test_id', requireAdminLogin, (req,res) => {
+let test_id = req.params.test_id;
+
+db.query('SELECT * FROM testler  WHERE test_id = ?',[test_id], (err,result) => {
+
+  const data = {
+    value: "admin-test-duzenle",
+    title: "admin-test-duzenle",
+    dataList: result
+  }
+
+  res.render('admin/admin-index', data);
+})
+
+
+
 });
 
 //sorular sayfası

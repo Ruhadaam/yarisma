@@ -236,13 +236,13 @@
 
                         // Test listesine yeni bir içerik ekle
                         testList.innerHTML += `
-        
+        <div class="flex justify-between w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
             <a href="#" class="flex items-center">
                 ${test.test_ad}
             </a>
             <div class="flex items-center space-x-2">
                 <!-- Düzenleme butonu/linki -->
-                <a href="/admin/kategori-duzenle/${test.test_id}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Düzenle</a>
+                <a href="/admin/test-duzenle/${test.test_id}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Düzenle</a>
                 <!-- Silme ikonu -->
                 <svg xmlns="http://www.w3.org/2000/svg" onclick="deleteTest(${test.test_id})"
                     fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"

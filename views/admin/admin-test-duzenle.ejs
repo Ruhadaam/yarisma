@@ -1,0 +1,73 @@
+<div class="flex items-center justify-center h-screen bg-gray-100 p-0">
+    <div class="bg-white p-8 rounded shadow-md w-full sm:w-96 lg:w-1/2">
+        <% dataList.forEach(data=> { %>
+
+            <form method="POST">
+                <input type="hidden" name="test_id" id="test_id" value="<%=data.test_id %>">
+                <input type="hidden" name="kategori_ad" id="kategori_ad" value="<%=data.kategori_ad %>">
+                <input type="hidden" name="kategori_id" id="kategori_id" value="<%=data.kategori_id %>">
+
+                <label class="block mb-4">
+                    <span class="text-gray-700">Test Ad</span>
+                    <input type="text" name="kategori_ad" class="w-full p-2 border border-gray-300 rounded-md"
+                        value="<%=data.test_ad%>" placeholder="Seçenek B">
+                </label>
+
+                <select name="kategoriler" id="kategoriler">
+
+                </select>
+
+
+
+                <button
+                    class="focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Testi
+                    Güncelle</button>
+            </form>
+
+            <% }) %>
+    </div>
+</div>
+<script>
+    addEventListener("DOMContentLoaded", getTests);
+    // Gizli input öğesini seç
+    let kategoriAdInput = document.querySelector('#kategori_ad');
+    let kategoriIdInput = document.querySelector('#kategori_id');
+
+    // 
+
+    function getTests() {
+        console.log('DOM içeriği yüklendi'); // Bu logun yazıldığını kontrol edin
+
+        let kategorilerSelect = document.querySelector('#kategoriler');
+
+        fetch('/admin/get-category/')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ağ yanıtı başarılı değildi');
+                }
+                return response.json();
+            })
+            .then(kategoriler => {
+                var defaultOption = document.createElement('option');
+                var kategoriAdValue = kategoriAdInput.value;
+                var kategoriIdValue = kategoriIdInput.value;
+
+                kategoriler.forEach(kategori => {
+                    // Eşleşen değer varsa yazma
+                    if (kategoriAdValue !== kategori.kategori_ad) {
+                        defaultOption.text = kategoriAdValue;
+                        defaultOption.value = kategoriIdValue;
+
+                        kategorilerSelect.appendChild(defaultOption);
+
+                        var option = document.createElement('option');
+                        option.value = kategori.kategori_id;
+                        option.text = kategori.kategori_ad;
+                        kategorilerSelect.appendChild(option);
+                    }
+                });
+            })
+
+            .catch(error => console.error('Fetch sırasında hata:', error)); // Fetch hatalarını loglayın
+    }
+</script>
