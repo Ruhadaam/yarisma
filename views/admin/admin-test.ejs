@@ -1,6 +1,6 @@
 <div class="p-5 md:p-11 h-full flex items-center justify-center">
-    <div class="bg-white p-5 md:p-8 rounded-lg shadow-md w-full md:w-1/2 lg:w-1/2">
 
+    <div class="bg-white p-5 md:p-8 rounded-lg shadow-md w-full md:w-1/2 lg:w-1/2">
         <h1 class="text-2xl font-semibold mb-5 md:mb-10">Test Ekleme</h1>
 
 
@@ -26,13 +26,44 @@
         </select>
 
 
-        <button type="button" id="addTest" onclick="createTest()"
+        <button type="button" onclick="createTest()"
             class="focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 m-5">Test
             Oluştur</button>
 
+        <hr class="mt-5 mb-5">
 
-        <hr class="mb-5">
+        <h3 class="text-2xl font-semibold mb-5">Test İşlemleri</h3>
+        <div
+            class="w-100 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <div id="test-list">
+                <div
+                    class="flex justify-between w-full px-4 py-2  border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+                    <a href="#" class="flex items-center">
+                        Testler
+                    </a>
+                    <div class="flex items-center space-x-2">
+                        <!-- Düzenleme butonu/linki -->
+                        <a href="/admin/kategori-duzenle/"
+                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Düzenle</a>
+                        <!-- Silme ikonu -->
+                        <svg xmlns="http://www.w3.org/2000/svg" onclick="deleteTest()" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor"
+                            class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] transition-all">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+</div>
+
+
+
+<div class="p-5 md:p-11 h-full flex items-center justify-center">
+
+    <div class="bg-white p-5 md:p-8 rounded-lg shadow-md w-full md:w-1/2 lg:w-1/2">
         <h1 class="text-2xl font-semibold mb-5">Soru Ekleme</h1>
 
         <form method="post" id="testForm" onsubmit="submitForm(event)">
@@ -146,6 +177,7 @@
 
         </form>
     </div>
+
 </div>
 
 
@@ -154,10 +186,18 @@
 
 
 <script src="/flowbite/flowbite.min.js"></script>
+
 <script>
     function getTests() {
         var selectElement = document.getElementById('categories');
         var categoryId = selectElement.value;
+
+
+        var testList = document.getElementById('test-list');
+
+
+
+
 
 
 
@@ -176,6 +216,9 @@
                 })
                 .then(tests => {
                     testsSelect.innerHTML = '';
+                    testList.innerHTML = "";
+
+
 
 
                     var defaultOption = document.createElement('option');
@@ -185,10 +228,29 @@
 
 
                     tests.forEach(test => {
+                        // Option oluştur ve testsSelect'e ekle
                         var option = document.createElement('option');
                         option.value = test.test_id;
                         option.text = test.test_ad;
                         testsSelect.appendChild(option);
+
+                        // Test listesine yeni bir içerik ekle
+                        testList.innerHTML += `
+        <div class="flex justify-between w-full px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
+            <a href="#" class="flex items-center">
+                ${test.test_ad}
+            </a>
+            <div class="flex items-center space-x-2">
+                <!-- Düzenleme butonu/linki -->
+                <a href="/admin/test-duzenle/${test.test_id}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Düzenle</a>
+                <!-- Silme ikonu -->
+                <svg xmlns="http://www.w3.org/2000/svg" onclick="deleteTest(${test.test_id})"
+                    fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                    class="w-6 h-6 text-red-700 rotate-0 hover:rotate-[30deg] transition-all">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
+        </div>`;
                     });
                 })
                 .catch(error => {
@@ -393,4 +455,11 @@
             text: this.message
         })
     }
+
+
+</script>
+
+<script>
+
+
 </script>
