@@ -3,6 +3,7 @@ const router = express.Router();
 const session = require('express-session');
 const db = require('../data/db');
 const util = require('util');
+const { error } = require('console');
 
 const queryAsync = util.promisify(db.query).bind(db);
 
@@ -402,6 +403,43 @@ db.query('SELECT * FROM testler  WHERE test_id = ?',[test_id], (err,result) => {
 
 
 });
+
+router.post('/admin/test-duzenle/:test_id', requireAdminLogin, (req, res) => {
+  let test_id = req.params.test_id;
+  let currentCategory_id = req.body.kategori_id;
+  let test_ad = req.body.test_ad; // Doğru değeri buradan almalısınız
+  console.log(req.body);
+
+  db.query('SELECT * FROM kategoriler WHERE kategori_id = ?', [currentCategory_id], (error, result) => {
+
+    if (error) {
+      console.error('Error selecting category:', error);
+      return res.status(500).send('Internal Server Error');
+    }
+
+    let kategoriInfo = result[0];
+    let kategori_ad = kategoriInfo.kategori_ad;
+    let kategori_id = kategoriInfo.kategori_id;
+    let kategori_aciklama = kategoriInfo.kategori_aciklama;
+
+    const sql = `
+      UPDATE testler
+      SET kategori_id = ?, kategori_ad = ?, kategori_aciklama = ?, test_ad = ?
+      WHERE test_id = ?;
+    `;
+
+    db.query(sql, [kategori_id, kategori_ad, kategori_aciklama, test_ad, test_id], (err, result) => {
+      if (err) {
+        console.error('Error updating record:', err);
+        return res.status(500).send('Internal Server Error');
+      } else {
+        res.redirect('/admin/test-ekle');
+      }
+    });
+
+  });
+});
+
 
 //sorular sayfası
 

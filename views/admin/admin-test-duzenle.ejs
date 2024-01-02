@@ -5,21 +5,21 @@
             <form method="POST">
                 <input type="hidden" name="test_id" id="test_id" value="<%=data.test_id %>">
                 <input type="hidden" name="kategori_ad" id="kategori_ad" value="<%=data.kategori_ad %>">
-                <input type="hidden" name="kategori_id" id="kategori_id" value="<%=data.kategori_id %>">
+                <input type="hidden" name="currentCategory_id" id="kategori_id" value="<%=data.kategori_id %>">
 
                 <label class="block mb-4">
                     <span class="text-gray-700">Test Ad</span>
-                    <input type="text" name="kategori_ad" class="w-full p-2 border border-gray-300 rounded-md"
+                    <input type="text" name="test_ad" class="w-full p-2 border border-gray-300 rounded-md"
                         value="<%=data.test_ad%>" placeholder="Seçenek B">
                 </label>
 
-                <select name="kategoriler" id="kategoriler">
+                <select name="kategori_id" id="kategoriler">
 
                 </select>
 
 
 
-                <button
+                <button type="submit"
                     class="focus:outline-none text-white bg-green-700 mt-5 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">Testi
                     Güncelle</button>
             </form>
@@ -70,4 +70,6 @@
 
             .catch(error => console.error('Fetch sırasında hata:', error)); // Fetch hatalarını loglayın
     }
+
+
 </script>
