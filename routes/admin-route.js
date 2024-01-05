@@ -440,6 +440,19 @@ router.post('/admin/test-duzenle/:test_id', requireAdminLogin, (req, res) => {
   });
 });
 
+router.delete('/admin/delete-test/:test_id', requireAdminLogin, (req, res) => {
+  const test_id = req.params.test_id;
+
+  db.query('DELETE FROM testler WHERE test_id = ?', [test_id], (err, result) => {
+    if (err) {
+      console.error('Kategori silinirken hata oluştu:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.status(200).json({ message: 'Kategoriler başarıyla silindi.' });
+    }
+  });
+});
+
 
 //sorular sayfası
 

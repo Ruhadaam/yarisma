@@ -41,10 +41,10 @@
                     <a href="#" class="flex items-center">
                         Testler
                     </a>
-                    <div class="flex items-center space-x-2" onclick="createAlert('warning','Dikkat!','Lütfen önce bir kategori seçin.')">
+                    <div class="flex items-center space-x-2"
+                        onclick="createAlert('warning','Dikkat!','Lütfen önce bir kategori seçin.')">
                         <!-- Düzenleme butonu/linki -->
-                        <a href="#"
-                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline" >Düzenle</a>
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Düzenle</a>
                         <!-- Silme ikonu -->
                         <svg xmlns="http://www.w3.org/2000/svg" onclick="deleteTest()" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor"
@@ -455,11 +455,24 @@
             text: this.message
         })
     }
+    function deleteTest(test_id) {
+        fetch(`/admin/delete-test/${test_id}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            }).then(data => {
+                getTests();
+                createAlert('success','Başarılı!','Test silme başarılı.')
+            }
+            )
+            .catch(error => {
+                console.error('Test silinirken hata oluştu:', error);
 
-
-</script>
-
-<script>
-
+            });
+    }
 
 </script>

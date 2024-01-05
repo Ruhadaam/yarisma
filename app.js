@@ -12,14 +12,14 @@ if (process.env.NODE_ENV == "production") {
 
 
 
-// express-session middleware'ini kullanın
+
 app.use(session({
   secret: 'your-secret-key',
   resave: false,
   saveUninitialized: true,
 }));
 
-// Diğer middleware'leri ve ayarları ekleyin
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', router);
