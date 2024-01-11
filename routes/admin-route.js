@@ -1,6 +1,5 @@
 const express = require('express');
-const router = express.Router();
-const session = require('express-session');
+const router = express.Router(); 
 const db = require('../data/db');
 const util = require('util');
 const { error } = require('console');
